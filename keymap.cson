@@ -1,0 +1,57 @@
+'.CodeMirror.vim-mode.normal-mode textarea':
+   'escape': 'vim:reset-normal-mode'
+
+'.CodeMirror.vim-mode.insert-mode textarea':
+    'ctrl-d': 'editor:delete-char-after'
+    'ctrl-v': 'core:paste'
+
+'.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
+    '0': 'vim:move-to-first-character-of-line'
+    'ctrl-e': 'vim:move-to-last-character-of-line'
+    'U': 'core:redo'
+    '1j': 'vim:move-down-by-display-lines'
+    '1k': 'vim:move-up-by-display-lines'
+    'enter': 'mycmd:open-cursor-link'
+    'ctrl-m': 'mycmd:open-current-line-links'
+    'ctrl-k': 'mycmd:open-cursor-link'
+    'ctrl-q': 'core:find'
+    'ctrl-n': 'sidetoc:jump-next'
+    'ctrl-p': 'sidetoc:jump-prev'
+    'ctrl-r': 'switch-note:open'
+    'H': 'core:navigate-back'
+    'L': 'core:navigate-forward'
+
+'.CodeMirror.vim-mode.visual-mode textarea':
+    'v': 'vim:move-to-last-character-of-line'
+
+'body':
+    'ctrl-@': 'mycmd:select-active'
+    'ctrl-i': 'mycmd:select-index'
+    'ctrl-q': 'core:find'
+    'ctrl-enter': 'editor:focus'
+    'cmd-s': 'view:toggle-side-by-side'
+    'ctrl-3': 'view:toggle-preview'
+    'ctrl-s': 'core:save-note'
+    'ctrl-1': 'mycmd:toggle-distraction-free'
+    'ctrl-2': 'mycmd:toggle-sidebar'
+    'cmd-n' : false
+    'ctrl-r': 'switch-note:open'
+    'ctrl-L': 'sidetoc:width-decrease'
+    'ctrl-K': 'sidetoc:width-increase'
+    'ctrl-0': 'sidetoc:width-reset'
+    'ctrl-.': 'mycmd:open-next-note'
+    'ctrl-,': 'core:open-prev-note'
+
+'.note-list-search-bar input':
+    'ctrl-w': 'native!'
+
+'.mde-preview':
+    'ctrl-n': 'sidetoc:jump-next'
+    'ctrl-p': 'sidetoc:jump-prev'
+    'H': 'core:navigate-back'
+    'L': 'core:navigate-forward'
+    '/': 'preview-finder:open'
+    'n': 'preview-finder:next'
+    'N': 'preview-finder:prev'
+    'e': 'hitahint:show'
+    'ctrl-e': 'hitahint:show'
