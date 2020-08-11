@@ -1,5 +1,7 @@
 inkdrop.window.setMinimumSize(400, 400);
 
+console.log(`process ${process.platform}`);
+
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   inkdrop.commands.dispatch(
     document.body,
@@ -80,7 +82,7 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   const urlReg = new RegExp(/(http.*?)( |\)|$)/g);
   [...str.matchAll(urlReg)].forEach((v) => {
     console.log(v);
-    open(v[0]);
+    open(v[1]);
   });
   // inkdrop:// parse
   const idReg = new RegExp(/(inkdrop:\/\/.*?)( |\)|$)/g);
