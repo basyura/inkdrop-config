@@ -1,5 +1,5 @@
 '.CodeMirror.vim-mode.normal-mode textarea':
-   'escape': 'vim:reset-normal-mode'
+   'escape': 'mycmd:reset-normal-mode'
 
 '.CodeMirror.vim-mode.insert-mode textarea':
     'ctrl-d': 'editor:delete-char-after'

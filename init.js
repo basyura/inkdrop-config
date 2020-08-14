@@ -161,3 +161,10 @@ function restoreHeader() {
     el.style.display = "";
   }
 }
+
+inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
+  inkdrop.commands.dispatch(document.body, "vim:reset-normal-mode");
+  const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+  const cm = inkdrop.getActiveEditor().cm;
+  vim.exCommandDispatcher.processCommand(cm, "nohlsearch")
+});
