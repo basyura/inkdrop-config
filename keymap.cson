@@ -4,6 +4,7 @@
 '.CodeMirror.vim-mode.insert-mode textarea':
     'ctrl-d': 'editor:delete-char-after'
     'ctrl-v': 'core:paste'
+    'ctrl-V': 'paste-url:paste-url'
 
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
     '0': 'vim:move-to-first-character-of-line'
@@ -20,6 +21,11 @@
     'ctrl-r': 'switch-note:open'
     'H': 'core:navigate-back'
     'L': 'core:navigate-forward'
+    'ctrl-t': 'vtab:add'
+    'ctrl-f': 'vtab:next'
+    'ctrl-b': 'vtab:prev'
+    'ctrl-4': 'short-link:toggle'
+    'ctrl-V': 'paste-url:paste-url'
 
 '.CodeMirror.vim-mode.visual-mode textarea':
     'v': 'vim:move-to-last-character-of-line'
@@ -41,6 +47,7 @@
     'ctrl-0': 'sidetoc:width-reset'
     'ctrl-.': 'mycmd:open-next-note'
     'ctrl-,': 'core:open-prev-note'
+    'ctrl-5': 'copy-notelink-to-clipboard:copy'
 
 '.note-list-search-bar input':
     'ctrl-w': 'native!'
@@ -55,3 +62,6 @@
     'N': 'preview-finder:prev'
     'e': 'hitahint:show'
     'ctrl-e': 'hitahint:show'
+    'ctrl-t': 'vtab:add'
+    'ctrl-f': 'vtab:next'
+    'ctrl-b': 'vtab:prev'

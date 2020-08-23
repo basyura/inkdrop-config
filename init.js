@@ -81,13 +81,13 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   // url parse
   const urlReg = new RegExp(/(http.*?)( |\)|$)/g);
   [...str.matchAll(urlReg)].forEach((v) => {
-    console.log(v);
+    //console.log(v);
     open(v[1]);
   });
   // inkdrop:// parse
   const idReg = new RegExp(/(inkdrop:\/\/.*?)( |\)|$)/g);
   const matches = [...str.matchAll(idReg)];
-  console.log(matches);
+  //console.log(matches);
   if (matches.length > 0) {
     inkdrop.commands.dispatch(document.body, "core:open-note", {
       noteId: matches[0][1].replace("inkdrop://", ""),
@@ -96,9 +96,9 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
 });
 
 inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
-  console.log("hi");
+  //console.log("hi");
   inkdrop.commands.dispatch(document.body, "vim:activate-insert-mode");
-  console.log("ho");
+  //console.log("ho");
   //inkdrop.commands.dispatch(document.body, "vim:activate-insert-mode")
   //inkdrop.commands.dispatch(document.body, "editor:go-char-left")
 });
@@ -166,5 +166,5 @@ inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
   inkdrop.commands.dispatch(document.body, "vim:reset-normal-mode");
   const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
   const cm = inkdrop.getActiveEditor().cm;
-  vim.exCommandDispatcher.processCommand(cm, "nohlsearch")
+  vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
 });
