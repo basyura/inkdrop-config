@@ -106,27 +106,22 @@ inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
 inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   const sidebar = document.querySelector(".sidebar-layout");
   const notelist = document.querySelector(".note-list-bar-layout");
+  const header = document.querySelector(".editor-header-title-input");
 
   // toggle to min header
   if (sidebar != null || notelist != null) {
     if (sidebar != null) {
       inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
+      header.style.paddingLeft = "70px";
     } else if (notelist != null) {
       inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
       inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
     }
-    document.querySelector(".editor-meta-layout").style.display = "none";
-    document.querySelector(".editor-title-input").style.paddingLeft = "70px";
-
-    // to drug
-    const header = document.querySelector(".editor-header-layout");
-    header.style.minHeight = "5px";
-    for (const el of Array.from(header.children)) {
-      el.style.display = "none";
-    }
-
     return;
+  } else {
+    header.style.paddingLeft = "0px";
   }
+
   // toggle to normal header
   inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
   restoreHeader();
@@ -145,6 +140,7 @@ inkdrop.commands.add(document.body, "mycmd:toggle-sidebar", () => {
 });
 
 function restoreHeader() {
+  /*
   const layout = document.querySelector(".editor-meta-layout");
   if (layout != null) {
     layout.style.display = "";
@@ -160,6 +156,7 @@ function restoreHeader() {
   for (const el of Array.from(header.children)) {
     el.style.display = "";
   }
+  */
 }
 
 inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
