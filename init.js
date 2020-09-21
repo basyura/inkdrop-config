@@ -140,23 +140,21 @@ inkdrop.commands.add(document.body, "mycmd:toggle-sidebar", () => {
 });
 
 function restoreHeader() {
-  /*
-  const layout = document.querySelector(".editor-meta-layout");
-  if (layout != null) {
-    layout.style.display = "";
-  }
-
-  const input = document.querySelector(".editor-title-input");
-  if (input != null) {
-    input.style.paddingLeft = "";
-  }
-
-  const header = document.querySelector(".editor-header-layout");
-  header.style.minHeight = "40px";
-  for (const el of Array.from(header.children)) {
-    el.style.display = "";
-  }
-  */
+  //  const layout = document.querySelector(".editor-meta-layout");
+  //  if (layout != null) {
+  //    layout.style.display = "";
+  //  }
+  //
+  //  const input = document.querySelector(".editor-title-input");
+  //  if (input != null) {
+  //    input.style.paddingLeft = "";
+  //  }
+  //
+  //  const header = document.querySelector(".editor-header-layout");
+  //  header.style.minHeight = "40px";
+  //  for (const el of Array.from(header.children)) {
+  //    el.style.display = "";
+  //  }
 }
 
 inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
