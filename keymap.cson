@@ -34,7 +34,7 @@
 
 'body':
     'ctrl-@': 'mycmd:select-active'
-    'ctrl-i': 'mycmd:select-index'
+    'ctrl-:': 'mycmd:select-index'
     'ctrl-q': 'core:find'
     'ctrl-enter': 'editor:focus'
     'cmd-s': 'view:toggle-side-by-side'
@@ -57,6 +57,8 @@
 '.mde-preview':
     'ctrl-n': 'sidetoc:jump-next'
     'ctrl-p': 'sidetoc:jump-prev'
+    'ctrl-o': 'core:navigate-back'
+    'ctrl-i': 'core:navigate-forward'
     'H': 'core:navigate-back'
     'L': 'core:navigate-forward'
     '/': 'preview-finder:open'
