@@ -2,6 +2,7 @@
    'escape': 'mycmd:reset-normal-mode'
 
 '.CodeMirror.vim-mode.insert-mode textarea':
+    'escape': 'mycmd:escape'
     'ctrl-d': 'editor:delete-char-after'
     'ctrl-v': 'core:paste'
     'ctrl-V': 'paste-url:paste-url'
