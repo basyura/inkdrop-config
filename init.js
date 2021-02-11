@@ -170,5 +170,5 @@ inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
 inkdrop.commands.add(document.body, "mycmd:escape", () => {
   const el = inkdrop.getActiveEditor().cm.getWrapperElement();
   inkdrop.commands.dispatch(el, "vim:exit-insert-mode");
-  inkdrop.commands.dispatch(el, "core:save-note");
+  // inkdrop.commands.dispatch(el, "core:save-note");
 });
