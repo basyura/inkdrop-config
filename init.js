@@ -22,6 +22,10 @@ inkdrop.commands.add(document.body, {
   },
 });
 
+inkdrop.commands.add(document.body, {
+  "mycmd:noop": () => {},
+});
+
 function openNote(mode) {
   inkdrop.commands.dispatch(document.body, `core:open-${mode}-note`);
   focusNote();

@@ -1,5 +1,6 @@
 '.CodeMirror.vim-mode.normal-mode textarea':
    'escape': 'mycmd:reset-normal-mode'
+   'tab': 'mycmd:noop'
 
 '.CodeMirror.vim-mode.insert-mode textarea':
     'escape': 'mycmd:escape'
