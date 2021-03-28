@@ -91,11 +91,9 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   // inkdrop:// parse
   const idReg = new RegExp(/(inkdrop:\/\/.*?)( |\)|$)/g);
   const matches = [...str.matchAll(idReg)];
-  //console.log(matches);
   if (matches.length > 0) {
-    inkdrop.commands.dispatch(document.body, "core:open-note", {
-      noteId: matches[0][1].replace("inkdrop://", ""),
-    });
+    const noteId = matches[0][1].replace("inkdrop://", "").replace("/", ":");
+    inkdrop.commands.dispatch(document.body, "core:open-note", { noteId });
   }
 });
 
@@ -175,4 +173,15 @@ inkdrop.commands.add(document.body, "mycmd:escape", () => {
   const el = inkdrop.getActiveEditor().cm.getWrapperElement();
   inkdrop.commands.dispatch(el, "vim:exit-insert-mode");
   // inkdrop.commands.dispatch(el, "core:save-note");
+});
+
+inkdrop.onEditorLoad(() => {
+  var CodeMirror = require("codemirror");
+  CodeMirror.Vim.defineEx("find", "f", (_, event) => {
+    inkdrop.commands.dispatch(document.body, "core:find-global");
+    if (event.argString)
+      inkdrop.commands.dispatch(document.body, "core:search-notes", {
+        keyword: event.argString.trim(),
+      });
+  });
 });
