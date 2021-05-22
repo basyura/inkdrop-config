@@ -3,13 +3,26 @@ inkdrop.window.setMinimumSize(400, 400);
 console.log(`process ${process.platform}`);
 
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
-  inkdrop.commands.dispatch(
-    document.body,
-    "core:note-list-show-notes-with-status",
-    {
-      status: "active",
-    }
-  );
+  const { queryContext } = inkdrop.store.getState();
+
+  if (queryContext.mode == "book") {
+    inkdrop.commands.dispatch(
+      document.body,
+      "core:note-list-show-notes-in-book",
+      {
+        bookId: queryContext.bookId,
+        status: "active",
+      }
+    );
+  } else {
+    inkdrop.commands.dispatch(
+      document.body,
+      "core:note-list-show-notes-with-status",
+      {
+        status: "active",
+      }
+    );
+  }
   focusNote();
 });
 
@@ -184,4 +197,20 @@ inkdrop.onEditorLoad(() => {
         keyword: event.argString.trim(),
       });
   });
+});
+
+inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
+  const { queryContext } = inkdrop.store.getState();
+  if (queryContext.mode == "book") {
+    inkdrop.commands.dispatch(
+      document.body,
+      "core:note-list-show-notes-in-book",
+      {
+        bookId: queryContext.bookId,
+      }
+    );
+  } else {
+    const node = document.querySelector(".sidebar-menu-item-all-notes");
+    node.querySelector(".content").click();
+  }
 });
