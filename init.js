@@ -3,14 +3,15 @@ inkdrop.window.setMinimumSize(400, 400);
 console.log(`process ${process.platform}`);
 
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
-  const { queryContext } = inkdrop.store.getState();
+  const { sidebar } = inkdrop.store.getState();
 
-  if (queryContext.mode == "book") {
+  const bookId = sidebar.workspace.bookId;
+  if (bookId != "") {
     inkdrop.commands.dispatch(
       document.body,
       "core:note-list-show-notes-in-book",
       {
-        bookId: queryContext.bookId,
+        bookId,
         status: "active",
       }
     );
@@ -23,7 +24,7 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
       }
     );
   }
-  focusNote();
+  inkdrop.commands.dispatch(document.body, "editor:focus");
 });
 
 inkdrop.commands.add(document.body, {
@@ -41,9 +42,10 @@ inkdrop.commands.add(document.body, {
 
 function openNote(mode) {
   inkdrop.commands.dispatch(document.body, `core:open-${mode}-note`);
-  focusNote();
+  inkdrop.commands.dispatch(document.body, "editor:focus");
 }
 
+/*
 function focusNote() {
   const editorEle = document.querySelector(".editor");
   if (editorEle != null) {
@@ -56,6 +58,7 @@ function focusNote() {
     }
   }
 }
+*/
 
 inkdrop.commands.add(document.body, "mycmd:select-index", () => {
   inkdrop.commands.dispatch(
@@ -69,7 +72,8 @@ inkdrop.commands.add(document.body, "mycmd:select-index", () => {
     inkdrop.commands.dispatch(document.body, "core:open-note", {
       noteId: "note:gZq7mi40L",
     });
-    focusNote();
+
+    inkdrop.commands.dispatch(document.body, "editor:focus");
   }, 50);
 });
 
