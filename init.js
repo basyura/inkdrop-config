@@ -5,23 +5,19 @@ console.log(`process ${process.platform}`);
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   const { sidebar } = inkdrop.store.getState();
 
+  const status = "active";
   const bookId = sidebar.workspace.bookId;
   if (bookId != "") {
     inkdrop.commands.dispatch(
       document.body,
       "core:note-list-show-notes-in-book",
-      {
-        bookId,
-        status: "active",
-      }
+      { bookId, status }
     );
   } else {
     inkdrop.commands.dispatch(
       document.body,
       "core:note-list-show-notes-with-status",
-      {
-        status: "active",
-      }
+      { status }
     );
   }
   inkdrop.commands.dispatch(document.body, "editor:focus");
@@ -200,6 +196,14 @@ inkdrop.onEditorLoad(() => {
       inkdrop.commands.dispatch(document.body, "core:search-notes", {
         keyword: event.argString.trim(),
       });
+  });
+});
+
+inkdrop.onEditorLoad(() => {
+  const ele = document.querySelector(".editor-header-title-input input");
+  const observer = new MutationObserver((_) => inkdrop.window.setTitle(""));
+  observer.observe(ele, {
+    attributes: true,
   });
 });
 
