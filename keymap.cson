@@ -3,6 +3,7 @@
    'tab': 'mycmd:noop'
 
 '.CodeMirror.vim-mode.insert-mode textarea':
+    'ctrl-[': 'core:toggle-task-list'
     'escape': 'mycmd:escape'
     'ctrl-d': 'editor:delete-char-after'
     'ctrl-v': 'core:paste'
