@@ -1,6 +1,25 @@
 inkdrop.window.setMinimumSize(400, 400);
 
-console.log(`process ${process.platform}`);
+const invoke = (command, param) => {
+  inkdrop.commands.dispatch(document.body, command, param);
+};
+
+const switchBook = (name) => {
+  const nodes = document.querySelectorAll(".sidebar-menu-book-list-item");
+  for (let i = 0, max = nodes.length; i < max; i++) {
+    const node = nodes[i];
+    const txt = node.querySelector(".content").innerText;
+    if (txt == name) {
+      node.querySelector(".disclosure-label").click();
+      return true;
+    }
+  }
+  return false;
+};
+
+const showNotesInBook = (bookId, status) => {
+  invoke("core:note-list-show-notes-in-book", { bookId, status });
+};
 
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   const { sidebar } = inkdrop.store.getState();
@@ -8,28 +27,16 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   const status = "active";
   const bookId = sidebar.workspace.bookId;
   if (bookId != "") {
-    inkdrop.commands.dispatch(
-      document.body,
-      "core:note-list-show-notes-in-book",
-      { bookId, status }
-    );
+    invoke("core:note-list-show-notes-in-book", { bookId, status });
   } else {
-    inkdrop.commands.dispatch(
-      document.body,
-      "core:note-list-show-notes-with-status",
-      { status }
-    );
+    invoke("core:note-list-show-notes-with-status", { status });
   }
-  inkdrop.commands.dispatch(document.body, "editor:focus");
+  invoke("editor:focus");
 });
 
 inkdrop.commands.add(document.body, {
-  "mycmd:open-next-note": () => {
-    openNote("next");
-  },
-  "mycmd:open-prev-note": () => {
-    openNote("prev");
-  },
+  "mycmd:open-next-note": () => openNote("next"),
+  "mycmd:open-prev-note": () => openNote("prev"),
 });
 
 inkdrop.commands.add(document.body, {
@@ -57,19 +64,10 @@ function focusNote() {
 */
 
 inkdrop.commands.add(document.body, "mycmd:select-index", () => {
-  inkdrop.commands.dispatch(
-    document.body,
-    "core:note-list-show-notes-with-tag",
-    {
-      tagId: "tag:OhQ8pubQl",
-    }
-  );
+  invoke("core:note-list-show-notes-with-tag", { tagId: "tag:OhQ8pubQl" });
   setTimeout(() => {
-    inkdrop.commands.dispatch(document.body, "core:open-note", {
-      noteId: "note:gZq7mi40L",
-    });
-
-    inkdrop.commands.dispatch(document.body, "editor:focus");
+    invoke("core:open-note", { noteId: "note:gZq7mi40L" });
+    invoke("editor:focus");
   }, 50);
 });
 
@@ -84,7 +82,7 @@ inkdrop.commands.add(document.body, "mycmd:open-cursor-link", () => {
   }
   // inkdrop://
   if ((token.type = "string url")) {
-    inkdrop.commands.dispatch(document.body, "core:open-note", {
+    invoke("core:open-note", {
       noteId: token.string.replace("inkdrop://", ""),
     });
     return;
@@ -106,7 +104,7 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   const matches = [...str.matchAll(idReg)];
   if (matches.length > 0) {
     const noteId = matches[0][1].replace("inkdrop://", "").replace("/", ":");
-    inkdrop.commands.dispatch(document.body, "core:open-note", { noteId });
+    invoke("core:open-note", { noteId });
   }
 });
 
@@ -126,11 +124,11 @@ inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   // toggle to min header
   if (sidebar != null || notelist != null) {
     if (sidebar != null) {
-      inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
+      invoke("view:toggle-distraction-free");
       header.style.paddingLeft = "70px";
     } else if (notelist != null) {
-      inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
-      inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
+      invoke("view:toggle-distraction-free");
+      invoke("view:toggle-distraction-free");
     }
     return;
   } else {
@@ -138,12 +136,12 @@ inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   }
 
   // toggle to normal header
-  inkdrop.commands.dispatch(document.body, "view:toggle-distraction-free");
+  invoke("view:toggle-distraction-free");
   restoreHeader();
 });
 
 inkdrop.commands.add(document.body, "mycmd:toggle-sidebar", () => {
-  inkdrop.commands.dispatch(document.body, "view:toggle-sidebar");
+  invoke("view:toggle-sidebar");
 
   const notelist = document.querySelector(".note-list-bar-layout");
   // toggle to normal header
@@ -173,7 +171,7 @@ function restoreHeader() {
 }
 
 inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
-  inkdrop.commands.dispatch(document.body, "vim:reset-normal-mode");
+  invoke("vim:reset-normal-mode");
   const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
   const cm = inkdrop.getActiveEditor().cm;
   vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
@@ -191,11 +189,9 @@ inkdrop.commands.add(document.body, "mycmd:escape", () => {
 inkdrop.onEditorLoad(() => {
   var CodeMirror = require("codemirror");
   CodeMirror.Vim.defineEx("find", "f", (_, event) => {
-    inkdrop.commands.dispatch(document.body, "core:find-global");
+    invoke("core:find-global");
     if (event.argString)
-      inkdrop.commands.dispatch(document.body, "core:search-notes", {
-        keyword: event.argString.trim(),
-      });
+      invoke("core:search-notes", { keyword: event.argString.trim() });
   });
 });
 
@@ -210,15 +206,19 @@ inkdrop.onEditorLoad(() => {
 inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
   const { queryContext } = inkdrop.store.getState();
   if (queryContext.mode == "book") {
-    inkdrop.commands.dispatch(
-      document.body,
-      "core:note-list-show-notes-in-book",
-      {
-        bookId: queryContext.bookId,
-      }
-    );
+    invoke("core:note-list-show-notes-in-book", {
+      bookId: queryContext.bookId,
+    });
   } else {
     const node = document.querySelector(".sidebar-menu-item-all-notes");
     node.querySelector(".content").click();
+  }
+});
+
+inkdrop.commands.add(document.body, "mycmd:switch-main", () => {
+  if (switchBook("main")) {
+    const { sidebar } = inkdrop.store.getState();
+    showNotesInBook(sidebar.workspace.bookId, "active");
+    setTimeout(() => invoke("editor:focus"), 700);
   }
 });

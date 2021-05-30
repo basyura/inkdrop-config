@@ -13,6 +13,7 @@
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
+    'ctrl-x ctrl-x': 'mycmd:switch-main'
     '0': 'vim:move-to-first-character-of-line'
     'ctrl-e': 'vim:move-to-last-character-of-line'
     'U': 'core:redo'
@@ -41,6 +42,7 @@
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
+    'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-@': 'mycmd:select-active'
     'ctrl-:': 'mycmd:select-index'
     'ctrl-q': 'core:find'
@@ -64,6 +66,7 @@
 '.mde-preview':
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
+    'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-n': 'sidetoc:jump-next'
     'ctrl-p': 'sidetoc:jump-prev'
     'ctrl-o': 'core:navigate-back'
