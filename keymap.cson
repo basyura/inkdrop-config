@@ -44,6 +44,7 @@
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-@': 'mycmd:select-active'
+    'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-:': 'mycmd:select-index'
     'ctrl-q': 'core:find'
     'ctrl-enter': 'editor:focus'

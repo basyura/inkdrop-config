@@ -217,8 +217,10 @@ inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
 
 inkdrop.commands.add(document.body, "mycmd:switch-main", () => {
   if (switchBook("main")) {
-    const { sidebar } = inkdrop.store.getState();
-    showNotesInBook(sidebar.workspace.bookId, "active");
+    setTimeout(() => {
+      const { sidebar } = inkdrop.store.getState();
+      showNotesInBook(sidebar.workspace.bookId, "active");
+    }, 500);
     setTimeout(() => invoke("editor:focus"), 700);
   }
 });
