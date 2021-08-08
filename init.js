@@ -18,7 +18,11 @@ const switchBook = (name) => {
 };
 
 const showNotesInBook = (bookId, status) => {
-  invoke("core:note-list-show-notes-in-book", { bookId, status });
+  invoke("core:note-list-show-notes-in-book", {
+    bookId,
+    status,
+    includeChildren: true,
+  });
 };
 
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
@@ -119,20 +123,20 @@ inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
 inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   const sidebar = document.querySelector(".sidebar-layout");
   const notelist = document.querySelector(".note-list-bar-layout");
-  const header = document.querySelector(".editor-header-title-input");
+  const header = document.querySelector(".editor-header-title-input input");
 
   // toggle to min header
   if (sidebar != null || notelist != null) {
     if (sidebar != null) {
       invoke("view:toggle-distraction-free");
-      header.style.paddingLeft = "70px";
     } else if (notelist != null) {
       invoke("view:toggle-distraction-free");
       invoke("view:toggle-distraction-free");
+      header.style.paddingLeft = "70px";
     }
     return;
   } else {
-    header.style.paddingLeft = "0px";
+    header.style.paddingLeft = "10px";
   }
 
   // toggle to normal header
@@ -180,6 +184,13 @@ inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
   inkdrop.commands.dispatch(el, "core:save-note");
 });
 
+inkdrop.commands.add(document.body, "mycmd:find-task", () => {
+  const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+  vim.getVimGlobalState().query = /\[ \]/;
+  const el = inkdrop.getActiveEditor().cm.getWrapperElement();
+  inkdrop.commands.dispatch(el, "vim:repeat-search");
+});
+
 inkdrop.commands.add(document.body, "mycmd:escape", () => {
   const el = inkdrop.getActiveEditor().cm.getWrapperElement();
   inkdrop.commands.dispatch(el, "vim:exit-insert-mode");
@@ -220,6 +231,16 @@ inkdrop.commands.add(document.body, "mycmd:switch-main", () => {
     setTimeout(() => {
       const { sidebar } = inkdrop.store.getState();
       showNotesInBook(sidebar.workspace.bookId, "active");
+    }, 500);
+    setTimeout(() => invoke("editor:focus"), 700);
+  }
+});
+
+inkdrop.commands.add(document.body, "mycmd:switch-ikusei", () => {
+  if (switchBook("育成")) {
+    setTimeout(() => {
+      const { sidebar } = inkdrop.store.getState();
+      showNotesInBook(sidebar.workspace.bookId, "none");
     }, 500);
     setTimeout(() => invoke("editor:focus"), 700);
   }

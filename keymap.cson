@@ -10,10 +10,12 @@
     'ctrl-V': 'paste-url:paste-url'
 
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
+    'ctrl-x ctrl-c': 'mycmd:find-task'
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
+    'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     '0': 'vim:move-to-first-character-of-line'
     'ctrl-e': 'vim:move-to-last-character-of-line'
     'U': 'core:redo'
@@ -43,6 +45,7 @@
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
+    'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-@': 'mycmd:select-active'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-:': 'mycmd:select-index'
@@ -60,6 +63,7 @@
     'ctrl-.': 'mycmd:open-next-note'
     'ctrl-,': 'core:open-prev-note'
     'ctrl-5': 'copy-notelink-to-clipboard:copy'
+    'ctrl-cmd-r': 'window:reload'
 
 '.note-list-search-bar input':
     'ctrl-w': 'native!'
@@ -68,6 +72,7 @@
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
+    'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-n': 'sidetoc:jump-next'
     'ctrl-p': 'sidetoc:jump-prev'
     'ctrl-o': 'core:navigate-back'
