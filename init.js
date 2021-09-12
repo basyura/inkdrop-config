@@ -125,35 +125,39 @@ inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   const notelist = document.querySelector(".note-list-bar-layout");
   const header = document.querySelector(".editor-header-title-input input");
 
-  // toggle to min header
-  if (sidebar != null || notelist != null) {
-    if (sidebar != null) {
-      invoke("view:toggle-distraction-free");
-    } else if (notelist != null) {
-      invoke("view:toggle-distraction-free");
-      invoke("view:toggle-distraction-free");
-      header.style.paddingLeft = "70px";
-    }
-    return;
-  } else {
-    header.style.paddingLeft = "10px";
-  }
-
-  // toggle to normal header
   invoke("view:toggle-distraction-free");
-  restoreHeader();
+
+  setTimeout(() => {
+    // console.log("sidebar is " + (sidebar == null ? "null" : "not null"));
+    // console.log("notelist is " + (notelist == null ? "null" : "not null"));
+    if (sidebar != null || notelist != null) {
+      // console.log("root1");
+      document.querySelector(".editor-header-top-spacer").style.height = "16px";
+      document.querySelector(".editor-meta-layout").style.display = "none";
+    } else if (sidebar != null && notelist != null) {
+      // 2 colum
+      // console.log("root2");
+      document.querySelector(".editor-header-top-spacer").style.height = "16px";
+      document.querySelector(".editor-meta-layout").style.display = "none";
+    } else {
+      // console.log("root3");
+      document.querySelector(".editor-header-top-spacer").style.height = "0px";
+      document.querySelector(".editor-meta-layout").style.display = "";
+    }
+  }, 100);
 });
 
 inkdrop.commands.add(document.body, "mycmd:toggle-sidebar", () => {
   invoke("view:toggle-sidebar");
-
   const notelist = document.querySelector(".note-list-bar-layout");
-  // toggle to normal header
+  // console.log("notelist is " + (notelist == null ? "null" : "not null"));
   if (notelist != null) {
-    restoreHeader();
+    document.querySelector(".editor-header-top-spacer").style.height = "0px";
+    document.querySelector(".editor-meta-layout").style.display = "";
+  } else {
+    document.querySelector(".editor-header-top-spacer").style.height = "16px";
+    document.querySelector(".editor-meta-layout").style.display = "none";
   }
-
-  // --pane-min-width
 });
 
 function restoreHeader() {
@@ -212,6 +216,8 @@ inkdrop.onEditorLoad(() => {
   observer.observe(ele, {
     attributes: true,
   });
+
+  document.querySelector(".editor-header-top-spacer").style.height = "0px";
 });
 
 inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
