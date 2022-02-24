@@ -7,7 +7,7 @@
     'escape': 'mycmd:escape'
     'ctrl-d': 'editor:delete-char-after'
     'ctrl-v': 'core:paste'
-    'ctrl-V': 'paste-url:paste-url'
+    'ctrl-x ctrl-v': 'paste-url:paste-url'
 
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
     'ctrl-x ctrl-c': 'mycmd:find-task'
