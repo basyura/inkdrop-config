@@ -1,5 +1,19 @@
 inkdrop.window.setMinimumSize(400, 400);
 
+inkdrop.onEditorLoad((e) => {
+  const { cm } = inkdrop.getActiveEditor();
+  cm.setOption("cursorBlinkRate", 0);
+});
+
+inkdrop.onEditorLoad(() => {
+  const ele = document.querySelector(".editor-header-title-input input");
+  const observer = new MutationObserver((_) => inkdrop.window.setTitle(""));
+  observer.observe(ele, {
+    attributes: true,
+  });
+  document.querySelector(".editor-header-top-spacer").style.height = "0px";
+});
+
 const invoke = (command, param) => {
   inkdrop.commands.dispatch(document.body, command, param);
 };
@@ -201,25 +215,6 @@ inkdrop.commands.add(document.body, "mycmd:escape", () => {
   // inkdrop.commands.dispatch(el, "core:save-note");
 });
 
-inkdrop.onEditorLoad(() => {
-  var CodeMirror = require("codemirror");
-  CodeMirror.Vim.defineEx("find", "f", (_, event) => {
-    invoke("core:find-global");
-    if (event.argString)
-      invoke("core:search-notes", { keyword: event.argString.trim() });
-  });
-});
-
-inkdrop.onEditorLoad(() => {
-  const ele = document.querySelector(".editor-header-title-input input");
-  const observer = new MutationObserver((_) => inkdrop.window.setTitle(""));
-  observer.observe(ele, {
-    attributes: true,
-  });
-
-  document.querySelector(".editor-header-top-spacer").style.height = "0px";
-});
-
 inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
   const { queryContext } = inkdrop.store.getState();
   if (queryContext.mode == "book") {
@@ -250,4 +245,61 @@ inkdrop.commands.add(document.body, "mycmd:switch-ikusei", () => {
     }, 500);
     setTimeout(() => invoke("editor:focus"), 700);
   }
+});
+
+// メッセージ表示 (Vim Plugin から拝借)
+function showConfirm(cm, text) {
+  if (cm.openNotification) {
+    cm.openNotification('<span style="color: red">' + text + "</span>", {
+      bottom: true,
+      duration: 5000,
+    });
+  } else {
+    alert(text);
+  }
+}
+
+/*
+ * vim plugin's command
+ */
+inkdrop.onEditorLoad(() => {
+  var CodeMirror = require("codemirror");
+  CodeMirror.Vim.defineEx("find", "f", (_, event) => {
+    invoke("core:find-global");
+    if (event.argString)
+      invoke("core:search-notes", { keyword: event.argString.trim() });
+  });
+  // 幅を指定してリサイズ
+  CodeMirror.Vim.defineEx("width", "wi", (cm, event) => {
+    if (event.args == null) {
+      showConfirm(cm, "requires an argument.");
+      return;
+    }
+    const height = window.screen.height;
+    const width = window.screen.width;
+    const arg = parseInt(event.args[0], 10);
+    const info = { x: width - arg, y: 0, width: arg, height: height };
+    inkdrop.window.setBounds(info);
+  });
+  // 横幅細めでリサイズ
+  CodeMirror.Vim.defineEx("slim", "sl", (_, event) => {
+    const height = window.screen.height;
+    const width = window.screen.width;
+    const info = { x: width - 600, y: 0, width: 600, height: height };
+    inkdrop.window.setBounds(info);
+  });
+  // 横幅半分にリサイズ
+  CodeMirror.Vim.defineEx("half", "ha", (_, event) => {
+    const height = window.screen.height;
+    const width = window.screen.width;
+    const info = { x: width / 2, y: 0, width: width / 2, height: height };
+    inkdrop.window.setBounds(info);
+  });
+  // 画面いっぱいにリサイズ (≠ Full Screen)
+  CodeMirror.Vim.defineEx("full", "fu", (_, event) => {
+    const height = window.screen.height;
+    const width = window.screen.width;
+    const info = { x: 0, y: 0, width, height };
+    inkdrop.window.setBounds(info);
+  });
 });
