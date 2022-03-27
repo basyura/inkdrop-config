@@ -1,6 +1,6 @@
 inkdrop.window.setMinimumSize(400, 400);
 
-inkdrop.onEditorLoad((e) => {
+inkdrop.onEditorLoad((_) => {
   const { cm } = inkdrop.getActiveEditor();
   cm.setOption("cursorBlinkRate", 0);
 });
@@ -74,21 +74,6 @@ function openNote(mode) {
   }, 100);
 }
 
-/*
-function focusNote() {
-  const editorEle = document.querySelector(".editor");
-  if (editorEle != null) {
-    const isPreview = editorEle.classList.contains("editor-viewmode-preview");
-    if (isPreview) {
-      const preview = editorEle.querySelector(".mde-preview");
-      preview.focus();
-    } else {
-      inkdrop.getActiveEditor().cm.focus();
-    }
-  }
-}
-*/
-
 inkdrop.commands.add(document.body, "mycmd:select-index", () => {
   invoke("core:note-list-show-notes-with-tag", { tagId: "tag:OhQ8pubQl" });
   setTimeout(() => {
@@ -141,171 +126,6 @@ inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
   //inkdrop.commands.dispatch(document.body, "vim:activate-insert-mode")
   //inkdrop.commands.dispatch(document.body, "editor:go-char-left")
 });
-
-/*
-let last_column_view = inkdrop.config.get("core.mainWindow.sideBar.visible")
-  ? 3
-  : 2;
-let last_column_cmd = last_column_view;
-
-const toggle_column = (col) => {
-  if (col == 1) {
-    toggle_column_one();
-  } else if (col == 2) {
-    toggle_column_two();
-  } else if (col == 3) {
-    toggle_column_three();
-  }
-};
-
-const toggle_column_one = () => {
-  if (document.querySelector(".note-list-bar-layout") != null) {
-    invoke("view:toggle-distraction-free");
-    document.querySelector(".editor-header-top-spacer").style.height = "16px";
-    document.querySelector(".editor-meta-layout").style.display = "none";
-    return;
-  }
-};
-
-const toggle_column_two = () => {
-  document.querySelector(".editor-header-top-spacer").style.height = "0px";
-  document.querySelector(".editor-meta-layout").style.display = "";
-  // sidebar が出ている場合は非表示
-  if (document.querySelector(".sidebar-layout") != null) {
-    invoke("view:toggle-sidebar");
-    return;
-  }
-  // note-list が出ている場合は何もしない
-  if (document.querySelector(".note-list-bar-layout") != null) {
-    return;
-  }
-
-  // distraction-free になっている場合
-  if (inkdrop.config.get("core.mainWindow.sideBar.visible")) {
-    // sidebar が表示設定になっている場合
-    invoke("view:toggle-distraction-free");
-    invoke("view:toggle-sidebar");
-    return;
-  }
-
-  // sidebar が非表示設定になっている場合
-  invoke("view:toggle-distraction-free");
-};
-
-const toggle_column_three = () => {
-  document.querySelector(".editor-header-top-spacer").style.height = "0px";
-  document.querySelector(".editor-meta-layout").style.display = "";
-
-  // sidebar が表示されている場合
-  if (document.querySelector(".sidebar-layout") != null) {
-    return;
-  }
-  // note-list が表示されているが sidebar が無い場合
-  if (document.querySelector(".note-list-bar-layout") != null) {
-    invoke("view:toggle-sidebar");
-    return;
-  }
-
-  // distraction-free になっている場合
-
-  // sidebar が表示設定になっている場合
-  if (inkdrop.config.get("core.mainWindow.sideBar.visible")) {
-    invoke("view:toggle-distraction-free");
-    return;
-  }
-  // sidebar が非表示設定になっている場合
-  invoke("view:toggle-distraction-free");
-  invoke("view:toggle-sidebar");
-};
-
-inkdrop.commands.add(document.body, "mycmd:column-one", () => {
-  if (last_column_cmd == 1) {
-    toggle_column(last_column_view);
-    last_column_cmd = last_column_view;
-  } else {
-    last_column_view = last_column_cmd;
-    last_column_cmd = 1;
-    toggle_column(last_column_cmd);
-  }
-});
-
-inkdrop.commands.add(document.body, "mycmd:column-two", () => {
-  if (last_column_cmd == 2) {
-    toggle_column(last_column_view);
-    last_column_cmd = last_column_view;
-  } else {
-    last_column_view = last_column_cmd;
-    last_column_cmd = 2;
-    toggle_column(last_column_cmd);
-  }
-});
-
-inkdrop.commands.add(document.body, "mycmd:column-three", () => {
-  if (last_column_cmd == 3) {
-    toggle_column(last_column_view);
-    last_column_cmd = last_column_view;
-  } else {
-    last_column_view = last_column_cmd;
-    last_column_cmd = 3;
-    toggle_column(last_column_cmd);
-  }
-});
-*/
-
-inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
-  const sidebar = document.querySelector(".sidebar-layout");
-  const notelist = document.querySelector(".note-list-bar-layout");
-  const header = document.querySelector(".editor-header-title-input input");
-
-  invoke("view:toggle-distraction-free");
-
-  setTimeout(() => {
-    if (sidebar != null || notelist != null) {
-      // 1column
-      document.querySelector(".editor-header-top-spacer").style.height = "16px";
-      document.querySelector(".editor-meta-layout").style.display = "none";
-    } else if (sidebar != null && notelist != null) {
-      // 2 colum
-      document.querySelector(".editor-header-top-spacer").style.height = "16px";
-      document.querySelector(".editor-meta-layout").style.display = "none";
-    } else {
-      // 0 column
-      document.querySelector(".editor-header-top-spacer").style.height = "0px";
-      document.querySelector(".editor-meta-layout").style.display = "";
-    }
-  }, 100);
-});
-
-inkdrop.commands.add(document.body, "mycmd:toggle-sidebar", () => {
-  invoke("view:toggle-sidebar");
-  const notelist = document.querySelector(".note-list-bar-layout");
-  // console.log("notelist is " + (notelist == null ? "null" : "not null"));
-  if (notelist != null) {
-    document.querySelector(".editor-header-top-spacer").style.height = "0px";
-    document.querySelector(".editor-meta-layout").style.display = "";
-  } else {
-    document.querySelector(".editor-header-top-spacer").style.height = "16px";
-    document.querySelector(".editor-meta-layout").style.display = "none";
-  }
-});
-
-function restoreHeader() {
-  //  const layout = document.querySelector(".editor-meta-layout");
-  //  if (layout != null) {
-  //    layout.style.display = "";
-  //  }
-  //
-  //  const input = document.querySelector(".editor-title-input");
-  //  if (input != null) {
-  //    input.style.paddingLeft = "";
-  //  }
-  //
-  //  const header = document.querySelector(".editor-header-layout");
-  //  header.style.minHeight = "40px";
-  //  for (const el of Array.from(header.children)) {
-  //    el.style.display = "";
-  //  }
-}
 
 inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
   invoke("vim:reset-normal-mode");
