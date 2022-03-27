@@ -62,8 +62,16 @@ inkdrop.commands.add(document.body, {
 });
 
 function openNote(mode) {
+  console.log("openNote");
   inkdrop.commands.dispatch(document.body, `core:open-${mode}-note`);
   inkdrop.commands.dispatch(document.body, "editor:focus");
+
+  // to avoid visual mode
+  setTimeout(() => {
+    const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+    const cm = inkdrop.getActiveEditor().cm;
+    vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
+  }, 100);
 }
 
 /*
@@ -134,6 +142,116 @@ inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
   //inkdrop.commands.dispatch(document.body, "editor:go-char-left")
 });
 
+/*
+let last_column_view = inkdrop.config.get("core.mainWindow.sideBar.visible")
+  ? 3
+  : 2;
+let last_column_cmd = last_column_view;
+
+const toggle_column = (col) => {
+  if (col == 1) {
+    toggle_column_one();
+  } else if (col == 2) {
+    toggle_column_two();
+  } else if (col == 3) {
+    toggle_column_three();
+  }
+};
+
+const toggle_column_one = () => {
+  if (document.querySelector(".note-list-bar-layout") != null) {
+    invoke("view:toggle-distraction-free");
+    document.querySelector(".editor-header-top-spacer").style.height = "16px";
+    document.querySelector(".editor-meta-layout").style.display = "none";
+    return;
+  }
+};
+
+const toggle_column_two = () => {
+  document.querySelector(".editor-header-top-spacer").style.height = "0px";
+  document.querySelector(".editor-meta-layout").style.display = "";
+  // sidebar が出ている場合は非表示
+  if (document.querySelector(".sidebar-layout") != null) {
+    invoke("view:toggle-sidebar");
+    return;
+  }
+  // note-list が出ている場合は何もしない
+  if (document.querySelector(".note-list-bar-layout") != null) {
+    return;
+  }
+
+  // distraction-free になっている場合
+  if (inkdrop.config.get("core.mainWindow.sideBar.visible")) {
+    // sidebar が表示設定になっている場合
+    invoke("view:toggle-distraction-free");
+    invoke("view:toggle-sidebar");
+    return;
+  }
+
+  // sidebar が非表示設定になっている場合
+  invoke("view:toggle-distraction-free");
+};
+
+const toggle_column_three = () => {
+  document.querySelector(".editor-header-top-spacer").style.height = "0px";
+  document.querySelector(".editor-meta-layout").style.display = "";
+
+  // sidebar が表示されている場合
+  if (document.querySelector(".sidebar-layout") != null) {
+    return;
+  }
+  // note-list が表示されているが sidebar が無い場合
+  if (document.querySelector(".note-list-bar-layout") != null) {
+    invoke("view:toggle-sidebar");
+    return;
+  }
+
+  // distraction-free になっている場合
+
+  // sidebar が表示設定になっている場合
+  if (inkdrop.config.get("core.mainWindow.sideBar.visible")) {
+    invoke("view:toggle-distraction-free");
+    return;
+  }
+  // sidebar が非表示設定になっている場合
+  invoke("view:toggle-distraction-free");
+  invoke("view:toggle-sidebar");
+};
+
+inkdrop.commands.add(document.body, "mycmd:column-one", () => {
+  if (last_column_cmd == 1) {
+    toggle_column(last_column_view);
+    last_column_cmd = last_column_view;
+  } else {
+    last_column_view = last_column_cmd;
+    last_column_cmd = 1;
+    toggle_column(last_column_cmd);
+  }
+});
+
+inkdrop.commands.add(document.body, "mycmd:column-two", () => {
+  if (last_column_cmd == 2) {
+    toggle_column(last_column_view);
+    last_column_cmd = last_column_view;
+  } else {
+    last_column_view = last_column_cmd;
+    last_column_cmd = 2;
+    toggle_column(last_column_cmd);
+  }
+});
+
+inkdrop.commands.add(document.body, "mycmd:column-three", () => {
+  if (last_column_cmd == 3) {
+    toggle_column(last_column_view);
+    last_column_cmd = last_column_view;
+  } else {
+    last_column_view = last_column_cmd;
+    last_column_cmd = 3;
+    toggle_column(last_column_cmd);
+  }
+});
+*/
+
 inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   const sidebar = document.querySelector(".sidebar-layout");
   const notelist = document.querySelector(".note-list-bar-layout");
@@ -142,19 +260,16 @@ inkdrop.commands.add(document.body, "mycmd:toggle-distraction-free", () => {
   invoke("view:toggle-distraction-free");
 
   setTimeout(() => {
-    // console.log("sidebar is " + (sidebar == null ? "null" : "not null"));
-    // console.log("notelist is " + (notelist == null ? "null" : "not null"));
     if (sidebar != null || notelist != null) {
-      // console.log("root1");
+      // 1column
       document.querySelector(".editor-header-top-spacer").style.height = "16px";
       document.querySelector(".editor-meta-layout").style.display = "none";
     } else if (sidebar != null && notelist != null) {
       // 2 colum
-      // console.log("root2");
       document.querySelector(".editor-header-top-spacer").style.height = "16px";
       document.querySelector(".editor-meta-layout").style.display = "none";
     } else {
-      // console.log("root3");
+      // 0 column
       document.querySelector(".editor-header-top-spacer").style.height = "0px";
       document.querySelector(".editor-meta-layout").style.display = "";
     }
@@ -282,21 +397,29 @@ inkdrop.onEditorLoad(() => {
     inkdrop.window.setBounds(info);
   });
   // 横幅細めでリサイズ
-  CodeMirror.Vim.defineEx("slim", "sl", (_, event) => {
+  CodeMirror.Vim.defineEx("slim", "sl", () => {
+    const sidebar = document.querySelector(".sidebar-layout");
+    const notelist = document.querySelector(".note-list-bar-layout");
+    if (sidebar != null || notelist != null) {
+      invoke("view:toggle-distraction-free");
+    }
+    document.querySelector(".editor-header-top-spacer").style.height = "16px";
+    document.querySelector(".editor-meta-layout").style.display = "none";
+
     const height = window.screen.height;
     const width = window.screen.width;
     const info = { x: width - 600, y: 0, width: 600, height: height };
     inkdrop.window.setBounds(info);
   });
   // 横幅半分にリサイズ
-  CodeMirror.Vim.defineEx("half", "ha", (_, event) => {
+  CodeMirror.Vim.defineEx("half", "ha", () => {
     const height = window.screen.height;
     const width = window.screen.width;
     const info = { x: width / 2, y: 0, width: width / 2, height: height };
     inkdrop.window.setBounds(info);
   });
   // 画面いっぱいにリサイズ (≠ Full Screen)
-  CodeMirror.Vim.defineEx("full", "fu", (_, event) => {
+  CodeMirror.Vim.defineEx("full", "fu", () => {
     const height = window.screen.height;
     const width = window.screen.width;
     const info = { x: 0, y: 0, width, height };
