@@ -55,7 +55,7 @@
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-:': 'mycmd:select-index'
     'ctrl-q': 'core:find'
-    'ctrl-enter': 'editor:focus'
+    'ctrl-enter': 'mycmd:editor-focus'
     'cmd-s': 'view:toggle-side-by-side'
     'ctrl-s': 'core:save-note'
     'cmd-n' : false

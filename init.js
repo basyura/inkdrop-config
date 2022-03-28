@@ -49,7 +49,27 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   } else {
     invoke("core:note-list-show-notes-with-status", { status });
   }
-  invoke("editor:focus");
+  invoke("-ditor:focus");
+});
+
+inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
+  inkdrop.commands.dispatch(document.body, "editor:focus");
+  setTimeout(() => {
+    // to avoid visual mode
+    const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+    const cm = inkdrop.getActiveEditor().cm;
+    vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
+
+    // to set search word
+    const input = document.querySelector(
+      "#app-container .note-list-bar-layout .note-list-search-bar div input"
+    );
+    if (input != null && input.value != "") {
+      vim.getVimGlobalState().query = new RegExp(input.value);
+      inkdrop.commands.dispatch(cm.getWrapperElement(), "vim:repeat-search");
+    }
+  }, 100);
+  // set search word
 });
 
 inkdrop.commands.add(document.body, {
