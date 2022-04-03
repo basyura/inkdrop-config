@@ -1,15 +1,6 @@
 '.CodeMirror.vim-mode.normal-mode textarea':
-   'escape': 'mycmd:reset-normal-mode'
-   'tab': 'mycmd:noop'
-
-'.CodeMirror.vim-mode.insert-mode textarea':
-    'ctrl-[': 'core:toggle-task-list'
-    'escape': 'mycmd:escape'
-    'ctrl-d': 'editor:delete-char-after'
-    'ctrl-v': 'core:paste'
-    'ctrl-x ctrl-v': 'paste-url:paste-url'
-
-'.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
+    'escape': 'mycmd:reset-normal-mode'
+    'tab': 'mycmd:noop'
     'ctrl-x ctrl-c': 'mycmd:find-task'
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
@@ -38,6 +29,16 @@
     'ctrl-4': 'short-link:toggle'
     'ctrl-V': 'paste-url:paste-url'
 
+'.CodeMirror.vim-mode.insert-mode textarea':
+    'ctrl-[': 'core:toggle-task-list'
+    'escape': 'mycmd:escape'
+    'ctrl-d': 'editor:delete-char-after'
+    'ctrl-v': 'core:paste'
+    'ctrl-x ctrl-v': 'paste-url:paste-url'
+
+'.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
+    'tab': 'mycmd:noop'
+
 '.CodeMirror.vim-mode.visual-mode textarea':
     'v': 'vim:move-to-last-character-of-line'
 
@@ -57,7 +58,6 @@
     'ctrl-q': 'core:find'
     'ctrl-enter': 'mycmd:editor-focus'
     'cmd-s': 'view:toggle-side-by-side'
-    'ctrl-s': 'core:save-note'
     'cmd-n' : false
     'ctrl-L': 'sidetoc:width-decrease'
     'ctrl-K': 'sidetoc:width-increase'
