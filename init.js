@@ -82,7 +82,6 @@ inkdrop.commands.add(document.body, {
 });
 
 function openNote(mode) {
-  console.log("openNote");
   inkdrop.commands.dispatch(document.body, `core:open-${mode}-note`);
   inkdrop.commands.dispatch(document.body, "editor:focus");
 
