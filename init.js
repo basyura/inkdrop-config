@@ -247,7 +247,22 @@ inkdrop.onEditorLoad(() => {
 
     const height = window.screen.height;
     const width = window.screen.width;
-    const info = { x: width - 600, y: 0, width: 600, height: height };
+    const info = { x: width - 600, y: 0, width: 600, height };
+    inkdrop.window.setBounds(info);
+  });
+  // 横幅細めでリサイズ - 左
+  CodeMirror.Vim.defineEx("lslim", "lsl", () => {
+    const sidebar = document.querySelector(".sidebar-layout");
+    const notelist = document.querySelector(".note-list-bar-layout");
+    if (sidebar != null || notelist != null) {
+      invoke("view:toggle-distraction-free");
+    }
+    document.querySelector(".editor-header-top-spacer").style.height = "16px";
+    document.querySelector(".editor-meta-layout").style.display = "none";
+
+    const height = window.screen.height;
+    const width = 600;
+    const info = { x: 0, y: 0, width, height };
     inkdrop.window.setBounds(info);
   });
   // 横幅半分にリサイズ
