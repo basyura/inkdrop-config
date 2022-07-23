@@ -28,6 +28,9 @@
     'ctrl-b': 'vtab:prev'
     'ctrl-4': 'short-link:toggle'
     'ctrl-V': 'paste-url:paste-url'
+    'ctrl-0': 'mycmd:reset-font-size'
+    'ctrl-;': 'window:increase-font-size'
+    'ctrl--': 'window:decrease-font-size'
 
 '.CodeMirror.vim-mode.insert-mode textarea':
     'ctrl-[': 'core:toggle-task-list'

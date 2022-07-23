@@ -201,6 +201,10 @@ inkdrop.commands.add(document.body, "mycmd:switch-ikusei", () => {
   }
 });
 
+inkdrop.commands.add(document.body, "mycmd:reset-font-size", () => {
+  inkdrop.config.set("editor.fontSize", 15);
+});
+
 // メッセージ表示 (Vim Plugin から拝借)
 function showConfirm(cm, text) {
   if (cm.openNotification) {
