@@ -217,11 +217,14 @@ function showConfirm(cm, text) {
   }
 }
 
-/*
- * vim plugin's command
- */
+//----- vim plugin's command -----//
 inkdrop.onEditorLoad(() => {
   var CodeMirror = require("codemirror");
+  // vim plugin not loaded
+  if (CodeMirror.Vim == null) {
+    return;
+  }
+
   CodeMirror.Vim.defineEx("find", "f", (_, event) => {
     invoke("core:find-global");
     if (event.argString)
@@ -274,6 +277,13 @@ inkdrop.onEditorLoad(() => {
     const height = window.screen.height;
     const width = window.screen.width;
     const info = { x: width / 2, y: 0, width: width / 2, height: height };
+    inkdrop.window.setBounds(info);
+  });
+  // 横幅半分にリサイズ - 左
+  CodeMirror.Vim.defineEx("lhalf", "lha", () => {
+    const height = window.screen.height;
+    const width = window.screen.width / 2;
+    const info = { x: 0, y: 0, width, height };
     inkdrop.window.setBounds(info);
   });
   // 画面いっぱいにリサイズ (≠ Full Screen)

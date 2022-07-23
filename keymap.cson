@@ -42,6 +42,7 @@
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
     'tab': 'mycmd:noop'
 
+
 '.CodeMirror.vim-mode.visual-mode textarea':
     'v': 'vim:move-to-last-character-of-line'
 
