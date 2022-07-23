@@ -152,8 +152,8 @@ inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
   const cm = inkdrop.getActiveEditor().cm;
   vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
 
-  const el = inkdrop.getActiveEditor().cm.getWrapperElement();
-  inkdrop.commands.dispatch(el, "core:save-note");
+  // const el = inkdrop.getActiveEditor().cm.getWrapperElement();
+  // inkdrop.commands.dispatch(el, "core:save-note");
 });
 
 inkdrop.commands.add(document.body, "mycmd:find-task", () => {
