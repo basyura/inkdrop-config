@@ -8,6 +8,7 @@
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-x ctrl-t': 'switch-tag:open'
+    'ctrl-x ctrl-s' : 'mycmd:open-scrap-note'
     '0': 'vim:move-to-first-character-of-line'
     'ctrl-e': 'vim:move-to-last-character-of-line'
     'U': 'core:redo'

@@ -49,7 +49,7 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   } else {
     invoke("core:note-list-show-notes-with-status", { status });
   }
-  invoke("-ditor:focus");
+  invoke("editor:focus");
 });
 
 inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
@@ -203,6 +203,11 @@ inkdrop.commands.add(document.body, "mycmd:switch-ikusei", () => {
 
 inkdrop.commands.add(document.body, "mycmd:reset-font-size", () => {
   inkdrop.config.set("editor.fontSize", 15);
+});
+
+inkdrop.commands.add(document.body, "mycmd:open-scrap-note", () => {
+  invoke("core:open-note", { noteId: "note:ccQ0UOMgs" });
+  setTimeout(() => invoke("editor:focus"), 700);
 });
 
 // メッセージ表示 (Vim Plugin から拝借)
