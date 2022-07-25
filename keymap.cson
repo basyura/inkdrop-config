@@ -9,6 +9,7 @@
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-x ctrl-t': 'switch-tag:open'
     'ctrl-s ctrl-s' : 'mycmd:open-scrap-note'
+    'ctrl-a ctrl-a' : 'editor:select-all'
     '0': 'vim:move-to-first-character-of-line'
     'ctrl-e': 'vim:move-to-last-character-of-line'
     'U': 'core:redo'
@@ -42,7 +43,6 @@
 
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
     'tab': 'mycmd:noop'
-
 
 '.CodeMirror.vim-mode.visual-mode textarea':
     'v': 'vim:move-to-last-character-of-line'
