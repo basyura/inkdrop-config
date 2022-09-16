@@ -205,8 +205,13 @@ inkdrop.commands.add(document.body, "mycmd:reset-font-size", () => {
   inkdrop.config.set("editor.fontSize", 15);
 });
 
-inkdrop.commands.add(document.body, "mycmd:open-scrap-note", () => {
+inkdrop.commands.add(document.body, "mycmd:open-scratch-note", () => {
   invoke("core:open-note", { noteId: "note:ccQ0UOMgs" });
+  setTimeout(() => invoke("editor:focus"), 700);
+});
+
+inkdrop.commands.add(document.body, "mycmd:open-idea-note", () => {
+  invoke("core:open-note", { noteId: "note:cacpQeu6G" });
   setTimeout(() => invoke("editor:focus"), 700);
 });
 

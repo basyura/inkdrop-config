@@ -1,6 +1,10 @@
 '.CodeMirror.vim-mode.normal-mode textarea':
+    'e': 'hitahint:show'
     'escape': 'mycmd:reset-normal-mode'
+    'space': 'view:toggle-preview'
     'tab': 'mycmd:noop'
+    'ctrl-o': 'core:navigate-back'
+    'ctrl-i': 'core:navigate-forward'
     'ctrl-x ctrl-c': 'mycmd:find-task'
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
@@ -8,7 +12,8 @@
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-x ctrl-t': 'switch-tag:open'
-    'ctrl-s ctrl-s' : 'mycmd:open-scrap-note'
+    'ctrl-s ctrl-s' : 'mycmd:open-scratch-note'
+    'ctrl-s ctrl-i' : 'mycmd:open-idea-note'
     'ctrl-a ctrl-a' : 'editor:select-all'
     '0': 'vim:move-to-first-character-of-line'
     'ctrl-e': 'vim:move-to-last-character-of-line'
@@ -48,6 +53,8 @@
     'v': 'vim:move-to-last-character-of-line'
 
 'body':
+    'ctrl-o': 'core:navigate-back'
+    'ctrl-i': 'core:navigate-forward'
     'ctrl-1': 'bearlike-switch-view:toggle-one'
     'ctrl-2': 'bearlike-switch-view:toggle-two'
     'ctrl-3': 'bearlike-switch-view:toggle-three'
@@ -76,14 +83,13 @@
     'ctrl-w': 'native!'
 
 '.mde-preview':
+    'ctrl-x ctrl-t': 'switch-tag:open'
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-n': 'sidetoc:jump-next'
     'ctrl-p': 'sidetoc:jump-prev'
-    'ctrl-o': 'core:navigate-back'
-    'ctrl-i': 'core:navigate-forward'
     'H': 'core:navigate-back'
     'L': 'core:navigate-forward'
     '/': 'preview-finder:open'
@@ -94,3 +100,6 @@
     'ctrl-t': 'vtab:add'
     'ctrl-f': 'vtab:next'
     'ctrl-b': 'vtab:prev'
+    'ctrl-s ctrl-s' : 'mycmd:open-scratch-note'
+    'ctrl-s ctrl-i' : 'mycmd:open-idea-note'
+    'space': 'view:toggle-preview'

@@ -2,6 +2,36 @@
   display: none !important;
 }
 
+em {
+  font-style: normal;
+}
+
+.mde-preview {
+  padding-top: 0px;
+  margin-top: -2px;
+}
+
+.mde-preview-scroll-past-end {
+  height: 400px !important;
+}
+
+.sidebar-layout {
+  width: 150px !important;
+  min-width: 150px !important;
+}
+
+/* preview checked */
+.ui.checkbox input:checked ~ .box:after,
+.ui.checkbox input:checked ~ label:after {
+  color: green;
+}
+
+/* preview not checked */
+.ui.checkbox .box:before,
+.ui.checkbox label:before {
+  border: 1px solid rgba(192, 80, 77, 0.5);
+}
+
 // .sidetoc-pane li {
 //   overflow: hidden;
 //   text-overflow: ellipsis;
@@ -15,3 +45,6 @@
 // .sidetoc-pane li::after {
 //   content: ".";
 // }
+//
+//
+//
