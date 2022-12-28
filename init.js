@@ -18,17 +18,21 @@ const invoke = (command, param) => {
   inkdrop.commands.dispatch(document.body, command, param);
 };
 
-const switchBook = (name) => {
+const switchBook = (name, status) => {
   const nodes = document.querySelectorAll(".sidebar-menu-book-list-item");
   for (let i = 0, max = nodes.length; i < max; i++) {
     const node = nodes[i];
     const txt = node.querySelector(".content").innerText;
     if (txt == name) {
       node.querySelector(".disclosure-label").click();
-      return true;
+      setTimeout(() => {
+        const { sidebar } = inkdrop.store.getState();
+        showNotesInBook(sidebar.workspace.bookId, status);
+      }, 500);
+      setTimeout(() => invoke("editor:focus"), 700);
+      break;
     }
   }
-  return false;
 };
 
 const showNotesInBook = (bookId, status) => {
@@ -181,24 +185,10 @@ inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
   }
 });
 
-inkdrop.commands.add(document.body, "mycmd:switch-main", () => {
-  if (switchBook("main")) {
-    setTimeout(() => {
-      const { sidebar } = inkdrop.store.getState();
-      showNotesInBook(sidebar.workspace.bookId, "active");
-    }, 500);
-    setTimeout(() => invoke("editor:focus"), 700);
-  }
-});
-
-inkdrop.commands.add(document.body, "mycmd:switch-ikusei", () => {
-  if (switchBook("育成")) {
-    setTimeout(() => {
-      const { sidebar } = inkdrop.store.getState();
-      showNotesInBook(sidebar.workspace.bookId, "none");
-    }, 500);
-    setTimeout(() => invoke("editor:focus"), 700);
-  }
+inkdrop.commands.add(document.body, {
+  "mycmd:switch-main": () => switchBook("main", "active"),
+  "mycmd:switch-ikusei": () => switchBook("育成", "none"),
+  "mycmd:switch-zcrap": () => switchBook("zcrap", "none"),
 });
 
 inkdrop.commands.add(document.body, "mycmd:reset-font-size", () => {
