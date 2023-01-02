@@ -14,6 +14,29 @@ inkdrop.onEditorLoad(() => {
   document.querySelector(".editor-header-top-spacer").style.height = "0px";
 });
 
+// 検索テキストボックスで Enter したらエディタにフォーカスして Vim の検索キーワードにセットする
+inkdrop.onEditorLoad(() => {
+  const ele = document.querySelector(".note-list-search-bar input");
+  ele.addEventListener("keydown", (e) => {
+    if (e.key != "Enter") {
+      return;
+    }
+
+    inkdrop.window.webContents.sendInputEvent({
+      type: "keyDown",
+      keyCode: "Escape",
+    });
+
+    setTimeout(() => {
+      const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+      const cm = inkdrop.getActiveEditor().cm;
+      vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
+      vim.getVimGlobalState().query = new RegExp(ele.value, "i");
+      inkdrop.commands.dispatch(document.body, "editor:focus");
+    }, 500);
+  });
+});
+
 const invoke = (command, param) => {
   inkdrop.commands.dispatch(document.body, command, param);
 };
@@ -69,7 +92,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
       "#app-container .note-list-bar-layout .note-list-search-bar div input"
     );
     if (input != null && input.value != "") {
-      vim.getVimGlobalState().query = new RegExp(input.value);
+      vim.getVimGlobalState().query = new RegExp(input.value, "i");
       inkdrop.commands.dispatch(cm.getWrapperElement(), "vim:repeat-search");
     }
   }, 100);
