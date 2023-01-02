@@ -1,13 +1,14 @@
 .editor {
-  span.cm-formatting.cm-formatting-task.cm-property {
-    color: green;
-  }
-
-  .cm-formatting-list-ol + .cm-variable-2,
-  .cm-formatting-list-ol + .cm-variable-3 {
-    // padding-left: 0px;
-    // margin-left: -8px;
-    // text-indent: 10px !important;
+  .CodeMirror {
+    -webkit-text-stroke-width: 0.05px !important;
+    text-shadow: transparent 0px 0px 0px, rgba(0, 0, 0, 0.5) 0px 0px 0px !important;
+    .gfm-codeblock {
+      font-size: 90%;
+      font-family: HackGen;
+    }
+    span.cm-formatting.cm-formatting-task.cm-property {
+      color: green;
+    }
   }
 }
 

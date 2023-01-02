@@ -192,7 +192,8 @@ inkdrop.commands.add(document.body, {
 });
 
 inkdrop.commands.add(document.body, "mycmd:reset-font-size", () => {
-  inkdrop.config.set("editor.fontSize", 15);
+  inkdrop.config.set("editor.fontSize", 16);
+  inkdrop.config.set("preview.fontSize", 16);
 });
 
 inkdrop.commands.add(document.body, "mycmd:open-scratch-note", () => {
@@ -288,9 +289,14 @@ inkdrop.onEditorLoad(() => {
   });
   // 画面いっぱいにリサイズ (≠ Full Screen)
   CodeMirror.Vim.defineEx("full", "fu", () => {
-    const height = window.screen.height;
+    const height = window.screen.height - 1;
     const width = window.screen.width;
-    const info = { x: 0, y: 0, width, height };
+    let info = { x: 0, y: 0, width, height };
+    if (process.platform == "win32") {
+      info.x = -1;
+      info.y = -1;
+      info.width += 1;
+    }
     inkdrop.window.setBounds(info);
   });
 });

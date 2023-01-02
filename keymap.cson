@@ -1,4 +1,5 @@
 '.CodeMirror.vim-mode.normal-mode textarea':
+    'alt-4' : 'mycmd:noop'
     'e': 'hitahint:show'
     'escape': 'mycmd:reset-normal-mode'
     'space': 'view:toggle-preview'
@@ -41,11 +42,14 @@
     'ctrl--': 'window:decrease-font-size'
 
 '.CodeMirror.vim-mode.insert-mode textarea':
-    'ctrl-[': 'core:toggle-task-list'
     'escape': 'mycmd:escape'
     'ctrl-d': 'editor:delete-char-after'
-    'ctrl-v': 'core:paste'
-    'ctrl-x ctrl-v': 'paste-url:paste-url'
+    'ctrl-a': 'vim:move-to-beginning-of-line'
+    'ctrl-e': 'editor:go-line-end'
+    'ctrl-k': 'vim:delete-to-last-character-of-line'
+    'ctrl-f': 'vim:move-right'
+    'ctrl-b': 'vim:move-left'
+    'ctrl-[': 'core:toggle-task-list'
 
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
     'tab': 'mycmd:noop'
@@ -65,6 +69,7 @@
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
+    'ctrl-x ctrl-z': 'mycmd:switch-zcrap'
     'ctrl-@': 'mycmd:select-active'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-:': 'mycmd:select-index'
@@ -79,6 +84,9 @@
     'ctrl-,': 'mycmd:open-prev-note'
     'ctrl-5': 'copy-notelink-to-clipboard:copy'
     'ctrl-cmd-r': 'window:reload'
+    'ctrl-n': 'mycmd:noop'
+    'ctrl-p': 'mycmd:noop'
+    'ctrl-w' : 'mycmd:noop'
 
 '.note-list-search-bar input':
     'ctrl-w': 'native!'
@@ -89,6 +97,7 @@
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
+    'ctrl-x ctrl-z': 'mycmd:switch-zcrap'
     'ctrl-n': 'sidetoc:jump-next'
     'ctrl-p': 'sidetoc:jump-prev'
     'H': 'core:navigate-back'
