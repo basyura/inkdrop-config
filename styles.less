@@ -35,8 +35,20 @@
 .sidebar-layout {
   width: 150px !important;
   min-width: 150px !important;
+  .status-message {
+    display: none;
+  }
   .status-additional {
-    display: none !important;
+    display: block !important;
+  }
+  .sidebar-sync-status-view {
+    padding: 0px;
+    flex: 0 0 20px;
+    .status-wrapper {
+      width: 100%;
+      flex: unset !important;
+      flex-direction: unset;
+    }
   }
 }
 
