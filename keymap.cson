@@ -87,6 +87,7 @@
     'ctrl-n': 'mycmd:noop'
     'ctrl-p': 'mycmd:noop'
     'ctrl-w' : 'mycmd:noop'
+    "f11" : 'mycmd:noop'
 
 '.note-list-search-bar input':
     'ctrl-w': 'native!'
