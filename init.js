@@ -17,6 +17,10 @@ inkdrop.onEditorLoad(() => {
 // 検索テキストボックスで Enter したらエディタにフォーカスして Vim の検索キーワードにセットする
 inkdrop.onEditorLoad(() => {
   const ele = document.querySelector(".note-list-search-bar input");
+  // 起動時に非表示になっている場合は何もしない
+  if (ele == null) {
+    return;
+  }
   ele.addEventListener("keydown", (e) => {
     if (e.key != "Enter") {
       return;
