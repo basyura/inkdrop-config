@@ -253,6 +253,10 @@ inkdrop.onEditorLoad(() => {
     return;
   }
 
+  CodeMirror.Vim.defineEx("new", "new", (_, _event) => {
+    invoke("core:new-note");
+  });
+
   CodeMirror.Vim.defineEx("find", "f", (_, event) => {
     invoke("core:find-global");
     if (event.argString)
