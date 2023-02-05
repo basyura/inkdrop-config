@@ -330,4 +330,28 @@ inkdrop.onEditorLoad(() => {
     }
     inkdrop.window.setBounds(info);
   });
+
+  // テーマ変更
+  CodeMirror.Vim.defineEx("theme", "theme", (cm, param) => {
+    if (param.args == null || param.args.length == 0) {
+      showConfirm(cm, "args : theme");
+      return;
+    }
+
+    const themes = {
+      light: ["github-preview", "my-default-light-syntax", "default-light-ui"],
+      dark: ["github-preview", "default-dark-ui", "material-dark-mod-syntax"],
+    };
+
+    // light: ["github-preview", "default-light-ui", "default-light-syntax"],
+    // dark: ["github-preview", "default-dark-ui", "default-dark-syntax"],
+
+    const theme = themes[param.args[0]];
+    if (theme == null) {
+      showConfirm(cm, "no theme");
+      return;
+    }
+
+    inkdrop.config.set("core.themes", theme);
+  });
 });
