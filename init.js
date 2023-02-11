@@ -334,7 +334,7 @@ inkdrop.onEditorLoad(() => {
   // テーマ変更
   CodeMirror.Vim.defineEx("theme", "theme", (cm, param) => {
     if (param.args == null || param.args.length == 0) {
-      showConfirm(cm, "args : theme");
+      showConfirm(cm, "args : light or dark");
       return;
     }
 
@@ -348,7 +348,7 @@ inkdrop.onEditorLoad(() => {
 
     const theme = themes[param.args[0]];
     if (theme == null) {
-      showConfirm(cm, "no theme");
+      showConfirm(cm, "args : light or dark");
       return;
     }
 
