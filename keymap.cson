@@ -1,4 +1,5 @@
 '.CodeMirror.vim-mode.normal-mode textarea':
+    'alt-p' : 'view:toggle-side-by-side'
     'alt-4' : 'mycmd:noop'
     'e': 'hitahint:show'
     'escape': 'mycmd:reset-normal-mode'
