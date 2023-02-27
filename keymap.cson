@@ -94,6 +94,7 @@
     'ctrl-w': 'native!'
 
 '.mde-preview':
+    'alt-p' : 'view:toggle-side-by-side'
     'ctrl-x ctrl-t': 'switch-tag:open'
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
