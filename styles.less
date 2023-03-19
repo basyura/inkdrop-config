@@ -64,4 +64,52 @@
   }
 }
 
+body[class*="theme-material-dark-mod-syntax"] {
+  .editor .CodeMirror .gfm-codeblock {
+    border-left: 2px solid rgba(250, 207, 78, 0.5);
+  }
+  .hint {
+    color: black;
+  }
+}
+
+body[class*="dark-ui"] .mde-preview {
+  color: #e0e0e0;
+  a {
+    color: #4ebaaa;
+  }
+  font-family: "UD Digi Kyokasho N-R";
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "UD Digi Kyokasho N-R";
+    color: #facf4e !important;
+  }
+
+  h1 {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+  }
+  h1::before {
+    color: rgba(250, 207, 78, 0.5) !important;
+    content: "# ";
+  }
+
+  h2 {
+    width: 80%;
+    border-bottom: none;
+  }
+
+  h2::before {
+    color: rgba(250, 207, 78, 0.5) !important;
+    content: "## ";
+  }
+
+  pre {
+    border-left: 2px solid rgba(250, 207, 78, 0.5);
+  }
+}
+
 @import "./styles.local.less";
