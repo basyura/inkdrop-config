@@ -88,12 +88,37 @@ body[class*="theme-material-dark-mod-syntax"] {
     .cm-em {
       color: #e0e0e0;
     }
+    .cm-formatting-quote {
+      color: gray !important;
+      font-weight: bold;
+    }
     .cm-quote {
       font-style: normal;
+      // color: #facf4e;
+      color: rgba(250, 207, 78, 0.9);
+    }
+    .cm-inline-code {
+      color: #facf4e;
     }
   }
   .hint {
     color: black;
+  }
+  .list-line-1 {
+    padding-left: 1.6em !important;
+    text-indent: -1.05em !important;
+  }
+  .list-line-2 {
+    padding-left: 2.7em !important;
+    text-indent: -2.05em !important;
+  }
+  .list-line-3 {
+    padding-left: 3.4em !important;
+    text-indent: -3.05em !important;
+  }
+  .list-line-4 {
+    padding-left: 4.6em !important;
+    text-indent: -4.05em !important;
   }
 }
 
@@ -140,21 +165,25 @@ body[class*="dark-ui"] .mde-preview {
     content: "## ";
   }
 
+  li code,
   p code {
     border: solid 1px rgba(255, 255, 255, 0.15);
     border-radius: 0.25em;
-    color: #bdbdbd;
+    color: #facf4e;
+    font-size: 90%;
   }
 
   pre {
     border-left: 2px solid rgba(250, 207, 78, 0.5);
     font-size: 90%;
   }
-
+  blockquote {
+    // color: #facf4e;
+    color: rgba(250, 207, 78, 0.9);
+  }
   .cm-tag {
     color: #fa5788;
   }
-
   div > p + ul {
     margin-top: -15px;
   }
