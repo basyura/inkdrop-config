@@ -165,12 +165,21 @@ body[class*="dark-ui"] .mde-preview {
     content: "## ";
   }
 
+  h3::before {
+    color: rgba(250, 207, 78, 0.5) !important;
+    content: "### ";
+  }
+
   li code,
   p code {
     border: solid 1px rgba(255, 255, 255, 0.15);
     border-radius: 0.25em;
     color: #facf4e;
     font-size: 90%;
+  }
+
+  li::marker {
+    color: #facf4e !important;
   }
 
   pre {
