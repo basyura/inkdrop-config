@@ -51,6 +51,7 @@
     'ctrl-f': 'vim:move-right'
     'ctrl-b': 'vim:move-left'
     'ctrl-[': 'core:toggle-task-list'
+    'ctrl-v': 'core:paste'
 
 '.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea':
     'tab': 'mycmd:noop'
