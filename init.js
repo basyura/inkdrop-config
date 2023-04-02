@@ -104,6 +104,15 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 });
 
 inkdrop.commands.add(document.body, {
+  "mycmd:focus_title": () => {
+    const ele = document.querySelector(
+      ".editor-header-title-input.ui.input input[type='text']"
+    );
+    ele.focus();
+  },
+});
+
+inkdrop.commands.add(document.body, {
   "mycmd:open-next-note": () => openNote("next"),
   "mycmd:open-prev-note": () => openNote("prev"),
 });
@@ -214,7 +223,6 @@ inkdrop.commands.add(document.body, "mycmd:select-all-notes", () => {
 
 inkdrop.commands.add(document.body, {
   "mycmd:switch-main": () => switchBook("main", "active"),
-  "mycmd:switch-ikusei": () => switchBook("育成", "none"),
   "mycmd:switch-zcrap": () => switchBook("zcrap", "none"),
 });
 

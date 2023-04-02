@@ -12,7 +12,7 @@
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
-    'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
+    'ctrl-x ctrl-i': 'mycmd:focus_title'
     'ctrl-x ctrl-z': 'mycmd:switch-zcrap'
     'ctrl-x ctrl-t': 'switch-tag:open'
     'ctrl-s ctrl-s' : 'mycmd:open-scratch-note'
