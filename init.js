@@ -26,6 +26,11 @@ inkdrop.onEditorLoad(() => {
       return;
     }
 
+    // 初速変換確定時は何もしない
+    if (e.ctrlKey) {
+      return;
+    }
+
     inkdrop.window.webContents.sendInputEvent({
       type: "keyDown",
       keyCode: "Escape",
