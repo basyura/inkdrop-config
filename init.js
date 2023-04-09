@@ -17,34 +17,41 @@ inkdrop.onEditorLoad(() => {
 // 検索テキストボックスで Enter したらエディタにフォーカスして Vim の検索キーワードにセットする
 inkdrop.onEditorLoad(() => {
   const ele = document.querySelector(".note-list-search-bar input");
-  // 起動時に非表示になっている場合は何もしない
+  // 起動時に非表示になっている場合は何もしない (非同期だった場合の考慮が必要)
   if (ele == null) {
     return;
   }
   ele.addEventListener("keydown", (e) => {
+    // 実行トリガーキー
     if (e.key != "Enter") {
       return;
     }
 
-    // 初速変換確定時は何もしない
-    if (e.ctrlKey) {
+    // 変換確定時は何もしない
+    if (e.isComposing) {
       return;
     }
 
-    inkdrop.window.webContents.sendInputEvent({
-      type: "keyDown",
-      keyCode: "Escape",
-    });
+    // ime off
+    imeoff();
 
+    // vim の検索ワードにセットする
     setTimeout(() => {
       const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
       const cm = inkdrop.getActiveEditor().cm;
       vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
       vim.getVimGlobalState().query = new RegExp(ele.value, "i");
       inkdrop.commands.dispatch(document.body, "editor:focus");
-    }, 500);
+    }, 100);
   });
 });
+
+const imeoff = () => {
+  if (process.platform == "darwin") {
+    const { execSync } = require("child_process");
+    execSync("/usr/local/bin/im-select com.google.inputmethod.Japanese.Roman");
+  }
+};
 
 const invoke = (command, param) => {
   inkdrop.commands.dispatch(document.body, command, param);
@@ -90,6 +97,7 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
 
 inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
   inkdrop.commands.dispatch(document.body, "editor:focus");
+  imeoff();
   setTimeout(() => {
     // to avoid visual mode
     const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
