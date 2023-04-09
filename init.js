@@ -53,8 +53,8 @@ const imeoff = () => {
     return;
   }
 
-  // Send "{vk1Dsc07B}"
-  execSync(process.env["USERPROFILE"] + "/Documents/AutoHotkey/imeoff.ahk");
+  // Send "{vk1Dsc07B}" by converted AutoHotKey exe
+  execSync("imeoff.exe");
 };
 
 const invoke = (command, param) => {
