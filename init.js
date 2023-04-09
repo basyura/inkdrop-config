@@ -47,10 +47,14 @@ inkdrop.onEditorLoad(() => {
 });
 
 const imeoff = () => {
+  const { execSync } = require("child_process");
   if (process.platform == "darwin") {
-    const { execSync } = require("child_process");
     execSync("/usr/local/bin/im-select com.google.inputmethod.Japanese.Roman");
+    return;
   }
+
+  // Send "{vk1Dsc07B}"
+  execSync(process.env["USERPROFILE"] + "/Documents/AutoHotkey/imeoff.ahk");
 };
 
 const invoke = (command, param) => {
