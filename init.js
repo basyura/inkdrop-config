@@ -5,6 +5,19 @@ inkdrop.onEditorLoad((_) => {
   cm.setOption("cursorBlinkRate", 0);
 });
 
+let lastBlurTime_ = new Date();
+inkdrop.window.on("focus", () => {
+  const diff = new Date() - lastBlurTime_;
+  if (diff > 1000 * 60 * 5) {
+    const { cm } = inkdrop.getActiveEditor();
+    showConfirm(cm, "sync ...");
+    const { ipcRenderer } = require("electron");
+    ipcRenderer.send("command", "application:sync-db", {});
+  }
+});
+
+inkdrop.window.on("blur", () => (lastBlurTime_ = new Date()));
+
 inkdrop.onEditorLoad(() => {
   const ele = document.querySelector(".editor-header-title-input input");
   const observer = new MutationObserver((_) => inkdrop.window.setTitle(""));
