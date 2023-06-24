@@ -14,7 +14,7 @@
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:focus_title'
     'ctrl-x ctrl-z': 'mycmd:switch-zcrap'
-    'ctrl-x ctrl-t': 'switch-tag:open'
+    'ctrl-@': 'switch-tag:open'
     'ctrl-s ctrl-s' : 'mycmd:open-scratch-note'
     'ctrl-s ctrl-i' : 'mycmd:open-idea-note'
     'ctrl-a ctrl-a' : 'editor:select-all'
@@ -72,7 +72,6 @@
     'ctrl-x ctrl-x': 'mycmd:switch-main'
     'ctrl-x ctrl-i': 'mycmd:switch-ikusei'
     'ctrl-x ctrl-z': 'mycmd:switch-zcrap'
-    'ctrl-@': 'mycmd:select-active'
     'ctrl-x ctrl-@': 'mycmd:select-all-notes'
     'ctrl-:': 'mycmd:select-index'
     'ctrl-q': 'core:find'
@@ -96,7 +95,6 @@
 
 '.mde-preview':
     'alt-p' : 'view:toggle-side-by-side'
-    'ctrl-x ctrl-t': 'switch-tag:open'
     'ctrl-r': 'switch-note:open'
     'ctrl-x ctrl-n': 'switch-notebook:open'
     'ctrl-x ctrl-x': 'mycmd:switch-main'
