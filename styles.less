@@ -215,6 +215,18 @@ body[class*="dark-ui"] .mde-preview {
   ul {
     padding-left: 1.2em;
   }
+
+  .ui.checkbox input:checked ~ .box:after,
+  .ui.checkbox input:checked ~ label:after {
+    color: lightgray;
+    margin-top: -4px;
+  }
+
+  .ui.checkbox .box:before,
+  .ui.checkbox label:before {
+    border: 1px solid orange;
+    background: rgba(255, 0, 0, 0.1);
+  }
 }
 
 .modal-layout {
