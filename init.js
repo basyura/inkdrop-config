@@ -1,3 +1,5 @@
+const { shell } = window.require('electron');
+
 inkdrop.window.setMinimumSize(400, 400);
 
 inkdrop.onEditorLoad((_) => {
@@ -177,7 +179,7 @@ inkdrop.commands.add(document.body, "mycmd:open-cursor-link", () => {
   const token = cm.getTokenAt(cur);
   // http(s)://
   if (token.type == "url") {
-    open(token.string);
+    shell.openExternal(token.string);
     return;
   }
   // inkdrop://
@@ -197,7 +199,7 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   const urlReg = new RegExp(/(http.*?)( |\)|$)/g);
   [...str.matchAll(urlReg)].forEach((v) => {
     //console.log(v);
-    open(v[1]);
+    shell.openExternal(v[1]);
   });
   // inkdrop:// parse
   const idReg = new RegExp(/(inkdrop:\/\/.*?)( |\)|$)/g);
