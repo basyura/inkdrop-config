@@ -1,10 +1,11 @@
-const { shell } = window.require('electron');
+const { shell } = window.require("electron");
 
 inkdrop.window.setMinimumSize(400, 400);
 
 inkdrop.onEditorLoad((_) => {
   const { cm } = inkdrop.getActiveEditor();
   cm.setOption("cursorBlinkRate", 0);
+  setTimeout(() => invoke("editor:focus"), 700);
 });
 
 let lastBlurTime_ = new Date();
