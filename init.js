@@ -126,7 +126,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 
     // to set search word
     const input = document.querySelector(
-      "#app-container .note-list-bar-layout .note-list-search-bar div input"
+      "#app-container .note-list-bar-layout .note-list-search-bar div input",
     );
     if (input != null && input.value != "") {
       vim.getVimGlobalState().query = new RegExp(input.value, "i");
@@ -139,7 +139,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 inkdrop.commands.add(document.body, {
   "mycmd:focus_title": () => {
     const ele = document.querySelector(
-      ".editor-header-title-input.ui.input input[type='text']"
+      ".editor-header-title-input.ui.input input[type='text']",
     );
     ele.focus();
   },
@@ -300,8 +300,9 @@ inkdrop.onEditorLoad(() => {
 
   CodeMirror.Vim.defineEx("find", "f", (_, event) => {
     invoke("core:find-global");
-    if (event.argString)
+    if (event.argString) {
       invoke("core:search-notes", { keyword: event.argString.trim() });
+    }
   });
   // 幅を指定してリサイズ
   CodeMirror.Vim.defineEx("width", "wi", (cm, event) => {
