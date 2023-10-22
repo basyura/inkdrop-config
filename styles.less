@@ -37,7 +37,16 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  // preview checked
+  // italic
+  em {
+    font-style: normal;
+  }
+
+  // checkbox
+  input[type="checkbox"] {
+    margin-left: -22px;
+  }
+
   .ui.checkbox input:checked ~ .box:after,
   .ui.checkbox input:checked ~ label:after {
     color: green;
@@ -50,9 +59,26 @@
   .mde-preview-scroll-past-end {
     height: 400px !important;
   }
-  // italic
-  em {
-    font-style: normal;
+  // width
+  p {
+    max-width: 720px;
+  }
+  h2,
+  ul {
+    max-width: 750px;
+  }
+  ol + ul {
+    margin-left: 20px;
+    margin-top: -20px;
+  }
+  p + ol {
+    margin-top: -20px;
+  }
+  ul + ol {
+    margin-top: -20px;
+  }
+  li label p + ul {
+    margin-top: -15px;
   }
 }
 
@@ -255,32 +281,6 @@ body[class*="dark-ui"] .mde-preview {
 
   .ui.search.dropdown .menu {
     max-height: 600px;
-  }
-}
-
-.mde-preview {
-  p {
-    max-width: 720px;
-  }
-  h2,
-  ul {
-    max-width: 750px;
-  }
-  ol + ul {
-    margin-left: 20px;
-    margin-top: -20px;
-  }
-  p + ol {
-    margin-top: -20px;
-  }
-  ul + ol {
-    margin-top: -20px;
-  }
-  li label p + ul {
-    margin-top: -15px;
-  }
-  input[type="checkbox"] {
-    margin-left: -22px;
   }
 }
 
