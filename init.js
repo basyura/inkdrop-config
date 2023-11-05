@@ -178,6 +178,9 @@ inkdrop.commands.add(document.body, "mycmd:open-cursor-link", () => {
   const cm = inkdrop.getActiveEditor().cm;
   const cur = cm.getCursor();
   const token = cm.getTokenAt(cur);
+  if (token.type == null) {
+    return
+  }
   // http(s)://
   if (token.type == "url") {
     shell.openExternal(token.string);
