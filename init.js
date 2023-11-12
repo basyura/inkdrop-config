@@ -126,7 +126,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 
     // to set search word
     const input = document.querySelector(
-      "#app-container .note-list-bar-layout .note-list-search-bar div input",
+      "#app-container .note-list-bar-layout .note-list-search-bar div input"
     );
     if (input != null && input.value != "") {
       vim.getVimGlobalState().query = new RegExp(input.value, "i");
@@ -139,7 +139,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 inkdrop.commands.add(document.body, {
   "mycmd:focus_title": () => {
     const ele = document.querySelector(
-      ".editor-header-title-input.ui.input input[type='text']",
+      ".editor-header-title-input.ui.input input[type='text']"
     );
     ele.focus();
   },
@@ -179,7 +179,7 @@ inkdrop.commands.add(document.body, "mycmd:open-cursor-link", () => {
   const cur = cm.getCursor();
   const token = cm.getTokenAt(cur);
   if (token.type == null) {
-    return
+    return;
   }
   // http(s)://
   if (token.type == "url") {
