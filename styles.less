@@ -24,6 +24,13 @@
       text-indent: -1em;
       padding-left: 1em;
     }
+    pre {
+      max-width:720px;
+    }
+    pre.table-row,
+    pre.gfm-codeblock {
+      max-width:none;
+    }
   }
   img.inline-widget {
     width: 50%;
@@ -147,6 +154,9 @@ body[class*="theme-material-dark-mod-syntax"] {
       border: none;
       padding: 0px;
       background: rgba(250, 207, 78, 0.5);
+    }
+    .quote {
+      border-left: 4px solid rgba(255, 255, 255, 0.1);
     }
   }
   .list-line-1 {
