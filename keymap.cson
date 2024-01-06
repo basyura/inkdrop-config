@@ -58,8 +58,6 @@
     'v': 'vim:move-to-last-character-of-line'
 
 'body':
-    'ctrl-o': 'core:navigate-back'
-    'ctrl-i': 'core:navigate-forward'
     'ctrl-1': 'bearlike-switch-view:toggle-one'
     'ctrl-2': 'bearlike-switch-view:toggle-two'
     'ctrl-3': 'bearlike-switch-view:toggle-three'
