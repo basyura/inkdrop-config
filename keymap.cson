@@ -76,8 +76,6 @@
     'ctrl-L': 'sidetoc:width-decrease'
     'ctrl-K': 'sidetoc:width-increase'
     'ctrl-0': 'sidetoc:width-reset'
-    'ctrl-.': 'mycmd:open-next-note'
-    'ctrl-,': 'mycmd:open-prev-note'
     'ctrl-5': 'copy-notelink-to-clipboard:copy'
     'ctrl-cmd-r': 'window:reload'
     'ctrl-n': 'mycmd:noop'
