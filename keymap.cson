@@ -16,6 +16,8 @@
     'ctrl-s ctrl-s' : 'mycmd:open-scratch-note'
     'ctrl-s ctrl-i' : 'mycmd:open-idea-note'
     'ctrl-a ctrl-a' : 'editor:select-all'
+    'ctrl-.': 'mycmd:open-next-note'
+    'ctrl-,': 'mycmd:open-prev-note'
     '0': 'vim:move-to-first-character-of-line'
     'ctrl-e': 'vim:move-to-last-character-of-line'
     'U': 'core:redo'
