@@ -78,7 +78,14 @@ const invoke = (command, param) => {
 };
 
 const switchBook = (name, status) => {
+  const bookEle = document.querySelector(".book-name")
+  if (bookEle != null && bookEle.innerText == name) {
+    const { sidebar } = inkdrop.store.getState();
+    showNotesInBook(sidebar.workspace.bookId, status);
+    return;
+  }
   const nodes = document.querySelectorAll(".sidebar-menu-book-list-item");
+  let isExists = false;
   for (let i = 0, max = nodes.length; i < max; i++) {
     const node = nodes[i];
     const txt = node.querySelector(".content").innerText;
@@ -89,7 +96,15 @@ const switchBook = (name, status) => {
         showNotesInBook(sidebar.workspace.bookId, status);
       }, 500);
       setTimeout(() => invoke("editor:focus"), 700);
+      isExists = true;
       break;
+    }
+  }
+
+  if (!isExists) {
+    const backBtn = document.querySelector(".back-button");
+    if (backBtn != null) {
+      backBtn.click();
     }
   }
 };
@@ -126,7 +141,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 
     // to set search word
     const input = document.querySelector(
-      "#app-container .note-list-bar-layout .note-list-search-bar div input"
+      "#app-container .note-list-bar-layout .note-list-search-bar div input",
     );
     if (input != null && input.value != "") {
       vim.getVimGlobalState().query = new RegExp(input.value, "i");
@@ -139,7 +154,7 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
 inkdrop.commands.add(document.body, {
   "mycmd:focus_title": () => {
     const ele = document.querySelector(
-      ".editor-header-title-input.ui.input input[type='text']"
+      ".editor-header-title-input.ui.input input[type='text']",
     );
     ele.focus();
   },
