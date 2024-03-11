@@ -105,6 +105,7 @@ const switchBook = (name, status) => {
     const backBtn = document.querySelector(".back-button");
     if (backBtn != null) {
       backBtn.click();
+      setTimeout(() => switchBook(name, status), 500);
     }
   }
 };
