@@ -91,12 +91,15 @@
     "ctrl-w": "native!"
   },
   ".mde-preview": {
+    "f12": "window:toggle-dev-tools",
     "alt-p": "view:toggle-side-by-side",
     "ctrl-r": "narrow-note:open",
     "ctrl-x ctrl-n": "narrow-book:open",
     "ctrl-x ctrl-x": "mycmd:switch-main",
     "ctrl-x ctrl-i": "mycmd:switch-ikusei",
     "ctrl-x ctrl-z": "mycmd:switch-zcrap",
+    "ctrl-o": "core:navigate-back",
+    "ctrl-i": "core:navigate-forward",
     "ctrl-n": "sidetoc:jump-next",
     "ctrl-p": "sidetoc:jump-prev",
     "ctrl-.": "mycmd:open-next-note",
