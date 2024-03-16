@@ -1,7 +1,6 @@
 {
   ".CodeMirror.vim-mode.normal-mode textarea": {
     "0": "vim:move-to-first-character-of-line",
-    "f12": "window:toggle-dev-tools",
     "alt-p": "view:toggle-side-by-side",
     "alt-4": "mycmd:noop",
     "e": "hitahint:show",
@@ -62,6 +61,7 @@
     "v": "vim:move-to-last-character-of-line"
   },
   "body": {
+    "f12": "window:toggle-dev-tools",
     "ctrl-1": "bearlike-switch-view:toggle-one",
     "ctrl-2": "bearlike-switch-view:toggle-two",
     "ctrl-3": "bearlike-switch-view:toggle-three",
@@ -91,7 +91,6 @@
     "ctrl-w": "native!"
   },
   ".mde-preview": {
-    "f12": "window:toggle-dev-tools",
     "alt-p": "view:toggle-side-by-side",
     "ctrl-r": "narrow-note:open",
     "ctrl-x ctrl-n": "narrow-book:open",
