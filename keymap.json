@@ -103,6 +103,7 @@
     "ctrl-p": "sidetoc:jump-prev",
     "ctrl-.": "mycmd:open-next-note",
     "ctrl-,": "mycmd:open-prev-note",
+    "ctrl-@": "narrow-tag:open",
     "H": "core:navigate-back",
     "L": "core:navigate-forward",
     "/": "preview-finder:open",
