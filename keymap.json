@@ -40,8 +40,8 @@
     "ctrl-4": "short-link:toggle",
     "ctrl-V": "paste-url:paste-url",
     "ctrl-0": "font-size:reset",
-    "ctrl-;": "window:increase-font-size",
-    "ctrl--": "window:decrease-font-size"
+    "ctrl-;": "font-size:increase",
+    "ctrl--": "font-size:decrease"
   },
   ".CodeMirror.vim-mode.insert-mode textarea": {
     "escape": "mycmd:escape",
@@ -105,8 +105,8 @@
     "ctrl-,": "mycmd:open-prev-note",
     "ctrl-@": "narrow-tag:open",
     "ctrl-0": "font-size:reset",
-    "ctrl-;": "window:increase-font-size",
-    "ctrl--": "window:decrease-font-size",
+    "ctrl-;": "font-size:increase",
+    "ctrl--": "font-size:decrease",
     "H": "core:navigate-back",
     "L": "core:navigate-forward",
     "/": "preview-finder:open",
