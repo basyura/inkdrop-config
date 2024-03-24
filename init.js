@@ -281,11 +281,6 @@ inkdrop.commands.add(document.body, {
   "mycmd:switch-zcrap": () => switchBook("zcrap", "none"),
 });
 
-inkdrop.commands.add(document.body, "mycmd:reset-font-size", () => {
-  inkdrop.config.set("editor.fontSize", 16);
-  inkdrop.config.set("preview.fontSize", 16);
-});
-
 inkdrop.commands.add(document.body, "mycmd:open-scratch-note", () => {
   invoke("core:open-note", { noteId: "note:ccQ0UOMgs" });
   setTimeout(() => invoke("editor:focus"), 700);
