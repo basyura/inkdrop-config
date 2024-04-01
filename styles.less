@@ -195,134 +195,145 @@ body[class*="theme-material-dark-mod-syntax"] {
   }
 }
 
-body[class*="dark-ui"] .mde-preview {
-  font-family: "UD Digi Kyokasho N-R", HackGen;
-  color: #e0e0e0;
-
-  * {
-    line-height: 170%;
+body[class*="dark-ui"] {
+  .note-list-bar {
+    .note-list-item-view.active {
+      background-color: rgba(255, 165, 0, 0.2) !important;
+      .date {
+        color: #ddd !important;
+      }
+    }
   }
 
-  a {
-    color: #4ebaaa;
-  }
-  em {
-    color: #e0e0e0;
-  }
-  strong {
-    color: orange;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
+  .mde-preview {
     font-family: "UD Digi Kyokasho N-R", HackGen;
-    color: #facf4e !important;
-  }
+    color: #e0e0e0;
 
-  h1 {
-    background: rgba(0, 0, 0, 0.2);
-    border-bottom: none;
-  }
+    * {
+      line-height: 170%;
+    }
 
-  h1::before {
-    color: rgba(250, 207, 78, 0.5) !important;
-    content: "# ";
-  }
+    a {
+      color: #4ebaaa;
+    }
+    em {
+      color: #e0e0e0;
+    }
+    strong {
+      color: orange;
+    }
 
-  h2 {
-    width: 80%;
-    border-bottom: none;
-  }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: "UD Digi Kyokasho N-R", HackGen;
+      color: #facf4e !important;
+    }
 
-  h2::before {
-    color: rgba(250, 207, 78, 0.5) !important;
-    content: "## ";
-  }
+    h1 {
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: none;
+    }
 
-  h3::before {
-    color: rgba(250, 207, 78, 0.5) !important;
-    content: "### ";
-  }
+    h1::before {
+      color: rgba(250, 207, 78, 0.5) !important;
+      content: "# ";
+    }
 
-  li code,
-  p code {
-    border: solid 1px rgba(255, 255, 255, 0.15);
-    border-radius: 0.25em;
-    color: #facf4e;
-    font-size: 90%;
-  }
+    h2 {
+      width: 80%;
+      border-bottom: none;
+    }
 
-  li::marker {
-    color: #facf4e !important;
-  }
+    h2::before {
+      color: rgba(250, 207, 78, 0.5) !important;
+      content: "## ";
+    }
 
-  pre {
-    border-left: 2px solid rgba(250, 207, 78, 0.5);
-    font-size: 90%;
-  }
-  blockquote {
-    // color: #facf4e;
-    color: rgba(250, 207, 78, 0.9);
-  }
-  .cm-tag {
-    color: #fa5788;
-  }
-  div > p + ul {
-    margin-top: -15px;
-  }
-  ul {
-    padding-left: 1.2em;
-  }
+    h3::before {
+      color: rgba(250, 207, 78, 0.5) !important;
+      content: "### ";
+    }
 
-  li.task-list-item > label > ul {
-    margin-left: 10px;
-  }
+    li code,
+    p code {
+      border: solid 1px rgba(255, 255, 255, 0.15);
+      border-radius: 0.25em;
+      color: #facf4e;
+      font-size: 90%;
+    }
 
-  .contains-task-list {
-    margin-left: 6px;
-  }
+    li::marker {
+      color: #facf4e !important;
+    }
 
-  .ui.checkbox input:checked ~ .box:after,
-  .ui.checkbox input:checked ~ label:after {
-    color: #4ebaaa;
-    margin-top: -4px;
-  }
-  .ui.checkbox input:checked ~ label:before {
-    border: 1px solid green;
-  }
+    pre {
+      border-left: 2px solid rgba(250, 207, 78, 0.5);
+      font-size: 90%;
+    }
+    blockquote {
+      // color: #facf4e;
+      color: rgba(250, 207, 78, 0.9);
+    }
+    .cm-tag {
+      color: #fa5788;
+    }
+    div > p + ul {
+      margin-top: -15px;
+    }
+    ul {
+      padding-left: 1.2em;
+    }
 
-  .ui.checkbox .box:before,
-  .ui.checkbox label:before {
-    border: 1px solid orange;
-    background: rgba(255, 0, 0, 0.1);
-  }
+    li.task-list-item > label > ul {
+      margin-left: 10px;
+    }
 
-  .cm-property {
-    color: #facf4e;
-  }
-  .cm-def {
-    color: #fa5788;
-  }
-  .cm-variable-2 {
-    color: inherit;
-  }
-  .cm-keyword {
-    color: #cf6edf;
-  }
-  .cm-string {
-    color: #99d066;
-  }
-  .cm-qualifier {
-    color: #cf6edf;
-  }
-  .cm-operator {
-    color: #56c8d8;
-  }
-  .cm-comment {
-    font-style: normal;
+    .contains-task-list {
+      margin-left: 6px;
+    }
+
+    .ui.checkbox input:checked ~ .box:after,
+    .ui.checkbox input:checked ~ label:after {
+      color: #4ebaaa;
+      margin-top: -4px;
+    }
+    .ui.checkbox input:checked ~ label:before {
+      border: 1px solid green;
+    }
+
+    .ui.checkbox .box:before,
+    .ui.checkbox label:before {
+      border: 1px solid orange;
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .cm-property {
+      color: #facf4e;
+    }
+    .cm-def {
+      color: #fa5788;
+    }
+    .cm-variable-2 {
+      color: inherit;
+    }
+    .cm-keyword {
+      color: #cf6edf;
+    }
+    .cm-string {
+      color: #99d066;
+    }
+    .cm-qualifier {
+      color: #cf6edf;
+    }
+    .cm-operator {
+      color: #56c8d8;
+    }
+    .cm-comment {
+      font-style: normal;
+    }
   }
 }
 
