@@ -2,6 +2,14 @@ const { shell } = window.require("electron");
 
 inkdrop.window.setMinimumSize(400, 400);
 
+document.body.style.border = "2px solid gray";
+inkdrop.window.on("maximize", () => {
+  document.body.style.border = "none";
+});
+inkdrop.window.on("unmaximize", () => {
+  document.body.style.border = "2px solid gray";
+});
+
 inkdrop.onEditorLoad((_) => {
   const { cm } = inkdrop.getActiveEditor();
   cm.setOption("cursorBlinkRate", 0);
