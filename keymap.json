@@ -121,7 +121,6 @@
     "ctrl-b": "vtab:prev",
     "ctrl-s ctrl-s": "mycmd:open-scratch-note",
     "ctrl-s ctrl-i": "mycmd:open-idea-note",
-    "space": "view:toggle-preview",
-    "escape": "view:toggle-preview"
+    "space": "view:toggle-preview"
   }
 }
