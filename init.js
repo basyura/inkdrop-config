@@ -3,12 +3,21 @@ const { shell } = window.require("electron");
 inkdrop.window.setMinimumSize(400, 400);
 
 if (process.platform == "win32") {
-  document.body.style.border = "2px solid gray";
+  const border = "solid gray";
+  const borderWidth = "2px 3px 3px 2px";
+  // check state
+  if (inkdrop.window.isNormal()) {
+    document.body.style.border = border;
+    document.body.style.borderWidth = borderWidth;
+  }
+  // add event
   inkdrop.window.on("maximize", () => {
-    document.body.style.border = "none";
+    document.body.style.border = "";
+    document.body.style.borderWidth = borderWidth;
   });
   inkdrop.window.on("unmaximize", () => {
-    document.body.style.border = "2px solid gray";
+    document.body.style.border = border;
+    document.body.style.borderWidth = borderWidth;
   });
 }
 
