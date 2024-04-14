@@ -321,13 +321,25 @@ function showConfirm(cm, text) {
     alert(text);
   }
 }
+// 最大化の解除
+function unmaximize() {
+  if (inkdrop.window.isMaximized()) {
+    inkdrop.window.unmaximize();
+  }
+}
 
 //----- vim plugin's command -----//
 inkdrop.onEditorLoad(() => {
+  // delay
+  setTimeout(() => initializeVimCommands(), 5000);
+});
+
+function initializeVimCommands() {
   var CodeMirror = require("codemirror");
   // vim plugin not loaded
   if (CodeMirror.Vim == null) {
-    return;
+    console.log("vim is null");
+    return false;
   }
 
   CodeMirror.Vim.defineEx("new", "new", (_, _event) => {
@@ -342,6 +354,7 @@ inkdrop.onEditorLoad(() => {
   });
   // 幅を指定してリサイズ
   CodeMirror.Vim.defineEx("width", "wi", (cm, event) => {
+    unmaximize();
     if (event.args == null) {
       showConfirm(cm, "requires an argument.");
       return;
@@ -354,6 +367,7 @@ inkdrop.onEditorLoad(() => {
   });
   // 横幅細めでリサイズ
   CodeMirror.Vim.defineEx("slim", "sl", () => {
+    unmaximize();
     const sidebar = document.querySelector(".sidebar-layout");
     const notelist = document.querySelector(".note-list-bar-layout");
     if (sidebar != null || notelist != null) {
@@ -369,6 +383,7 @@ inkdrop.onEditorLoad(() => {
   });
   // 横幅細めでリサイズ - 左
   CodeMirror.Vim.defineEx("lslim", "lsl", () => {
+    unmaximize();
     const sidebar = document.querySelector(".sidebar-layout");
     const notelist = document.querySelector(".note-list-bar-layout");
     if (sidebar != null || notelist != null) {
@@ -384,6 +399,7 @@ inkdrop.onEditorLoad(() => {
   });
   // 横幅半分にリサイズ
   CodeMirror.Vim.defineEx("half", "ha", () => {
+    unmaximize();
     const height = window.screen.height;
     const width = window.screen.width;
     const info = { x: width / 2, y: 0, width: width / 2, height: height };
@@ -391,13 +407,20 @@ inkdrop.onEditorLoad(() => {
   });
   // 横幅半分にリサイズ - 左
   CodeMirror.Vim.defineEx("lhalf", "lha", () => {
+    unmaximize();
+
     const height = window.screen.height;
     const width = window.screen.width / 2;
     const info = { x: 0, y: 0, width, height };
     inkdrop.window.setBounds(info);
   });
+  // 最大化
+  CodeMirror.Vim.defineEx("max", "max", () => {
+    inkdrop.window.maximize();
+  });
   // 画面いっぱいにリサイズ (≠ Full Screen)
   CodeMirror.Vim.defineEx("full", "fu", () => {
+    unmaximize();
     const height = window.screen.height - 1;
     const width = window.screen.width;
     let info = { x: 0, y: 0, width, height };
@@ -432,4 +455,6 @@ inkdrop.onEditorLoad(() => {
 
     inkdrop.config.set("core.themes", theme);
   });
-});
+
+  return true;
+}
