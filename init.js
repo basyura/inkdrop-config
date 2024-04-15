@@ -2,6 +2,9 @@ const { shell } = window.require("electron");
 
 inkdrop.window.setMinimumSize(400, 400);
 
+/*
+ * ウインドウが通常状態の場合、枠(Border)に色を付ける。
+ */
 if (process.platform == "win32") {
   const border = "solid gray";
   const borderWidth = "2px 3px 3px 2px";
@@ -21,12 +24,18 @@ if (process.platform == "win32") {
   });
 }
 
+/*
+ * カーソルを点滅させない
+ */
 inkdrop.onEditorLoad((_) => {
   const { cm } = inkdrop.getActiveEditor();
   cm.setOption("cursorBlinkRate", 0);
   setTimeout(() => invoke("editor:focus"), 700);
 });
 
+/*
+ * フォーカスが当たった際に同期する
+ */
 let lastBlurTime_ = new Date();
 inkdrop.window.on("focus", () => {
   const diff = new Date() - lastBlurTime_;
@@ -40,45 +49,42 @@ inkdrop.window.on("focus", () => {
 
 inkdrop.window.on("blur", () => (lastBlurTime_ = new Date()));
 
-inkdrop.onEditorLoad(() => {
-  const ele = document.querySelector(".editor-header-title-input input");
-  const observer = new MutationObserver((_) => inkdrop.window.setTitle(""));
-  observer.observe(ele, {
-    attributes: true,
-  });
-  document.querySelector(".editor-header-top-spacer").style.height = "0px";
-});
-
 // 検索テキストボックスで Enter したらエディタにフォーカスして Vim の検索キーワードにセットする
-inkdrop.onEditorLoad(() => {
-  const ele = document.querySelector(".note-list-search-bar input");
-  // 起動時に非表示になっている場合は何もしない (非同期だった場合の考慮が必要)
-  if (ele == null) {
+inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
+  const e = ev.originalEvent;
+  // 実行トリガーキー
+  if (e.key != "Enter") {
     return;
   }
-  ele.addEventListener("keydown", (e) => {
-    // 実行トリガーキー
-    if (e.key != "Enter") {
+
+  // 変換確定時は何もしない
+  if (e.isComposing) {
+    return;
+  }
+
+  // ime off
+  imeoff();
+
+  // vim の検索ワードにセットする
+  setTimeout(() => {
+    const ele = document.querySelector(".note-list-search-bar input");
+    // preview
+    const pf = inkdrop.packages.activePackages["preview-finder"].mainModule;
+    pf.setWord(ele.value);
+
+    // vim
+    const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+    const editor = inkdrop.getActiveEditor();
+    // 検索ワードがヒットしない場合
+    if (editor == null) {
       return;
     }
 
-    // 変換確定時は何もしない
-    if (e.isComposing) {
-      return;
-    }
-
-    // ime off
-    imeoff();
-
-    // vim の検索ワードにセットする
-    setTimeout(() => {
-      const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
-      const cm = inkdrop.getActiveEditor().cm;
-      vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
-      vim.getVimGlobalState().query = new RegExp(ele.value, "i");
-      inkdrop.commands.dispatch(document.body, "editor:focus");
-    }, 100);
-  });
+    const cm = editor.cm;
+    vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
+    vim.getVimGlobalState().query = new RegExp(ele.value, "i");
+    inkdrop.commands.dispatch(document.body, "editor:focus");
+  }, 100);
 });
 
 const imeoff = () => {
@@ -150,7 +156,8 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
   invoke("editor:focus");
 });
 
-inkdrop.commands.add(document.body, "mycmd:editor-focus", () => {
+inkdrop.commands.add(document.body, "mycmd:editor-focus", (ev) => {
+  console.log("mycmd:editor-focus");
   inkdrop.commands.dispatch(document.body, "editor:focus");
   imeoff();
   setTimeout(() => {
@@ -326,6 +333,11 @@ function unmaximize() {
   if (inkdrop.window.isMaximized()) {
     inkdrop.window.unmaximize();
   }
+}
+
+function isPreviewMode() {
+  const ele = document.querySelector(".editor");
+  return ele.classList.contains("editor-viewmode-preview");
 }
 
 //----- vim plugin's command -----//
