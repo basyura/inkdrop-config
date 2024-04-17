@@ -91,7 +91,6 @@
   },
   ".note-list-search-bar input": {
     "ctrl-w": "native!",
-    "ctrl-enter": "mycmd:focus-search",
     "enter": "mycmd:focus-search"
   },
   ".mde-preview": {

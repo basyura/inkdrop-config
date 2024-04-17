@@ -30,7 +30,6 @@ if (process.platform == "win32") {
 inkdrop.onEditorLoad((_) => {
   const { cm } = inkdrop.getActiveEditor();
   cm.setOption("cursorBlinkRate", 0);
-  setTimeout(() => invoke("editor:focus"), 700);
 });
 
 /*
