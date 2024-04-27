@@ -69,7 +69,7 @@ inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
     const ele = document.querySelector(".note-list-search-bar input");
     // preview
     const pf = inkdrop.packages.activePackages["preview-finder"].mainModule;
-    pf.setWord(ele.value);
+    pf.find(ele.value);
 
     // vim
     const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
