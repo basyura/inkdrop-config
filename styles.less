@@ -47,6 +47,13 @@
 }
 
 .mde-preview {
+  // reviese for 5.8.1
+  li > p,
+  li > label > p {
+    margin-top: unset;
+    margin-bottom: unset;
+  }
+
   padding-top: 0px;
   margin-top: -2px;
   .metadata {
@@ -104,35 +111,6 @@
   .codeblock pre,
   pre {
     border-radius: 0px;
-  }
-}
-
-.sidebar-layout-content {
-  width: 150px !important;
-  min-width: 150px !important;
-  .accessory-count {
-    display: none;
-  }
-  .status-message {
-    display: none;
-  }
-  .status-additional {
-    display: block !important;
-  }
-  .sidebar-sync-status-view {
-    padding: 0px;
-    flex: 0 0 20px;
-    .status-wrapper {
-      width: 100%;
-      flex: unset !important;
-      flex-direction: unset;
-    }
-    .dropdown {
-      color: var(--sidebar-sync-status-view-detail-color);
-    }
-  }
-  .sidebar-workspace-title {
-    display: none;
   }
 }
 
@@ -355,6 +333,35 @@ body[class*="dark-ui"] {
     .code-title {
       background-color: #5c5c5c;
     }
+  }
+}
+
+.sidebar-layout-content {
+  width: 150px !important;
+  min-width: 150px !important;
+  .accessory-count {
+    display: none;
+  }
+  .status-message {
+    display: none;
+  }
+  .status-additional {
+    display: block !important;
+  }
+  .sidebar-sync-status-view {
+    padding: 0px;
+    flex: 0 0 20px;
+    .status-wrapper {
+      width: 100%;
+      flex: unset !important;
+      flex-direction: unset;
+    }
+    .dropdown {
+      color: var(--sidebar-sync-status-view-detail-color);
+    }
+  }
+  .sidebar-workspace-title {
+    display: none;
   }
 }
 
