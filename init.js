@@ -384,8 +384,8 @@ function initializeVimCommands() {
     if (sidebar != null || notelist != null) {
       invoke("view:toggle-distraction-free");
     }
-    document.querySelector(".editor-header-top-spacer").style.height = "16px";
-    document.querySelector(".editor-meta-layout").style.display = "none";
+    // document.querySelector(".editor-header-top-spacer").style.height = "16px";
+    // document.querySelector(".editor-meta-layout").style.display = "none";
 
     const height = window.screen.height;
     const width = window.screen.width;
@@ -400,8 +400,8 @@ function initializeVimCommands() {
     if (sidebar != null || notelist != null) {
       invoke("view:toggle-distraction-free");
     }
-    document.querySelector(".editor-header-top-spacer").style.height = "16px";
-    document.querySelector(".editor-meta-layout").style.display = "none";
+    // document.querySelector(".editor-header-top-spacer").style.height = "16px";
+    // document.querySelector(".editor-meta-layout").style.display = "none";
 
     const height = window.screen.height;
     const width = 600;
