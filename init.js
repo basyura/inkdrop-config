@@ -33,6 +33,24 @@ inkdrop.onEditorLoad((_) => {
 });
 
 /*
+ * more の位置を変える
+ */
+inkdrop.onEditorLoad((_) => {
+  const more = document.querySelector(".editor-header-more button");
+  more.style.position = "absolute";
+  more.style.marginLeft = "-25px";
+  more.style.background = "none";
+  more.style.border = "none";
+  more.style.cursor = "pointer";
+
+  const g = more.querySelector("g");
+  g.setAttribute("stroke", "darkgray");
+
+  const tags = document.querySelector(".note-tags-bar-input");
+  tags.appendChild(more);
+});
+
+/*
  * フォーカスが当たった際に同期する
  */
 let lastBlurTime_ = new Date();
