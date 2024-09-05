@@ -330,7 +330,7 @@ inkdrop.commands.add(document.body, "mycmd:open-scratch-note", () => {
 });
 
 inkdrop.commands.add(document.body, "mycmd:open-idea-note", () => {
-  invoke("core:open-note", { noteId: "note:cacpQeu6G" });
+  invoke("core:open-note", { noteId: "note:S4aoc83ZE" });
   setTimeout(() => invoke("editor:focus"), 700);
 });
 
