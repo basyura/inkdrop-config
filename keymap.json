@@ -9,6 +9,7 @@
     "tab": "mycmd:noop",
     "ctrl-x ctrl-c": "mycmd:find-task",
     "ctrl-r": "narrow-note:open",
+    "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
     "ctrl-x ctrl-n": "narrow-book:open",
     "ctrl-x ctrl-@": "mycmd:select-all-notes",
     "ctrl-x ctrl-x": "mycmd:switch-main",
@@ -68,6 +69,7 @@
     "ctrl-3": "bearlike-switch-view:toggle-three",
     "cmd-p": "view:toggle-preview",
     "ctrl-r": "narrow-note:open",
+    "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
     "ctrl-x ctrl-n": "narrow-book:open",
     "ctrl-x ctrl-@": "mycmd:select-all-notes",
     "ctrl-x ctrl-x": "mycmd:switch-main",
@@ -96,6 +98,7 @@
   ".mde-preview": {
     "alt-p": "view:toggle-side-by-side",
     "ctrl-r": "narrow-note:open",
+    "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
     "ctrl-x ctrl-n": "narrow-book:open",
     "ctrl-x ctrl-x": "mycmd:switch-main",
     "ctrl-x ctrl-i": "mycmd:switch-ikusei",
