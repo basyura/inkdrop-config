@@ -51,6 +51,16 @@ inkdrop.onEditorLoad((_) => {
 });
 
 /*
+ * spellcheck をオフにする
+ */
+inkdrop.onEditorLoad((_) => {
+  const ele = document.querySelector(
+    ".editor-header-title-input.ui.input input[type='text']"
+  );
+  ele.spellcheck = false;
+});
+
+/*
  * フォーカスが当たった際に同期する
  */
 let lastBlurTime_ = new Date();
