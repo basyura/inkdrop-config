@@ -284,6 +284,16 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
     const noteId = matches[0][1].replace("inkdrop://", "").replace("/", ":");
     invoke("core:open-note", { noteId });
   }
+  // #12345 でチケット番号をパース
+  const issueReg = new RegExp(/#(\d+)/g);
+  [...str.matchAll(issueReg)].forEach((v) => {
+    // config.json に設定を記載
+    // "myconfig": {
+    //   "redmine_url": "http://redmine.org/issues/"
+    // },
+    const issueUrl = inkdrop.config.get("myconfig.redmine_url") + v[1];
+    shell.openExternal(issueUrl);
+  });
 });
 
 inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
