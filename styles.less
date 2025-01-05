@@ -190,9 +190,16 @@ body[class*="theme-material-dark-mod-syntax"] {
       color: orange;
       font-weight: normal;
     }
-    .cm-variable,
-    .cm-formatting-list-ul {
+    .cm-variable {
       color: #ffa657;
+    }
+    .cm-formatting-list-ul {
+      color: transparent;
+    }
+    .cm-formatting-list-ul::before {
+      content: "•";
+      margin-right: -7px;
+      color: #fac4fe !important;
     }
     .quote {
       border-left: 4px solid rgba(255, 255, 255, 0.1);
