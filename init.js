@@ -354,6 +354,24 @@ inkdrop.commands.add(document.body, "mycmd:open-idea-note", () => {
   setTimeout(() => invoke("editor:focus"), 700);
 });
 
+inkdrop.commands.add(document.body, "mycmd:refresh-note", () => {
+  const id = inkdrop.activeEditor.props.noteId;
+  // 作成済みの blank ページへ
+  invoke("core:open-note", { noteId: "note:x0jjUDCo" });
+  const reopen = () => {
+    setTimeout(() => {
+      invoke("core:open-note", { noteId: id });
+      setTimeout(() => {
+        if (id != inkdrop.activeEditor.props.noteId) {
+          reopen();
+        }
+      }, 10);
+    }, 10);
+  };
+
+  reopen();
+});
+
 // メッセージ表示 (Vim Plugin から拝借)
 function showConfirm(cm, text) {
   if (cm.openNotification) {

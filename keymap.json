@@ -15,6 +15,7 @@
     "ctrl-x ctrl-x": "mycmd:switch-main",
     "ctrl-x ctrl-i": "mycmd:focus_title",
     "ctrl-x ctrl-z": "mycmd:switch-zcrap",
+    "ctrl-x ctrl-l": "mycmd:refresh-note",
     "ctrl-@": "narrow-tag:open",
     "ctrl-s ctrl-s": "mycmd:open-scratch-note",
     "ctrl-s ctrl-i": "mycmd:open-idea-note",
