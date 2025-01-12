@@ -357,7 +357,7 @@ inkdrop.commands.add(document.body, "mycmd:open-idea-note", () => {
 inkdrop.commands.add(document.body, "mycmd:refresh-note", () => {
   const id = inkdrop.activeEditor.props.noteId;
   // 作成済みの blank ページへ
-  invoke("core:open-note", { noteId: "note:x0jjUDCo" });
+  invoke("core:open-note", { noteId: "note:x0jjUDCo", pushState: false });
   const reopen = () => {
     setTimeout(() => {
       invoke("core:open-note", { noteId: id });
