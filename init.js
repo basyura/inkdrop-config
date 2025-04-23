@@ -24,18 +24,27 @@ if (process.platform == "win32") {
   });
 }
 
+const onEditorLoad = (func) => {
+  const editor = inkdrop.activeEditor;
+  if (editor != null) {
+    func(editor);
+  } else {
+    inkdrop.onEditorLoad((editor) => func(editor));
+  }
+};
+
 /*
  * カーソルを点滅させない
  */
-inkdrop.onEditorLoad((_) => {
-  const { cm } = inkdrop.getActiveEditor();
-  cm.setOption("cursorBlinkRate", 0);
+
+onEditorLoad((editor) => {
+  editor.cm.setOption("cursorBlinkRate", 0);
 });
 
 /*
  * more の位置を変える
  */
-inkdrop.onEditorLoad((_) => {
+onEditorLoad((_) => {
   const more = document.querySelector(".editor-header-more button");
   more.style.position = "absolute";
   more.style.marginLeft = "-25px";
@@ -53,7 +62,7 @@ inkdrop.onEditorLoad((_) => {
 /*
  * spellcheck をオフにする
  */
-inkdrop.onEditorLoad((_) => {
+onEditorLoad((_) => {
   const ele = document.querySelector(
     ".editor-header-title-input.ui.input input[type='text']"
   );
@@ -396,16 +405,17 @@ function isPreviewMode() {
 }
 
 //----- vim plugin's command -----//
-inkdrop.onEditorLoad(() => {
-  // delay
-  setTimeout(() => initializeVimCommands(), 5000);
+onEditorLoad(() => {
+  setTimeout(() => initializeVimCommands(), 3000);
 });
 
 function initializeVimCommands() {
+  console.log("initializeVimCommands");
   var CodeMirror = require("codemirror");
   // vim plugin not loaded
   if (CodeMirror.Vim == null) {
     console.log("vim is null");
+    setTimeout(() => initializeVimCommands(), 3000);
     return false;
   }
 
