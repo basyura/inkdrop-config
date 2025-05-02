@@ -2,6 +2,7 @@
   ".CodeMirror.vim-mode.normal-mode textarea": {
     "0": "vim:move-to-first-character-of-line",
     "alt-p": "view:toggle-side-by-side",
+    "cmd-p": "view:toggle-side-by-side",
     "alt-4": "mycmd:noop",
     "e": "hitahint:show",
     "escape": "mycmd:reset-normal-mode",
@@ -68,7 +69,6 @@
     "ctrl-1": "bearlike-switch-view:toggle-one",
     "ctrl-2": "bearlike-switch-view:toggle-two",
     "ctrl-3": "bearlike-switch-view:toggle-three",
-    "cmd-p": "view:toggle-preview",
     "ctrl-r": "narrow-note:open",
     "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
     "ctrl-x ctrl-n": "narrow-book:open",
