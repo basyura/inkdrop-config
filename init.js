@@ -24,13 +24,27 @@ if (process.platform == "win32") {
   });
 }
 
-const onEditorLoad = (func) => {
+const onEditorLoad = (func, isReAttach) => {
   const editor = inkdrop.activeEditor;
   if (editor != null) {
     func(editor);
   } else {
     inkdrop.onEditorLoad((editor) => func(editor));
   }
+
+  if (isReAttach) {
+    inkdrop.onEditorUnload(() => reAttach(func));
+  }
+};
+
+const reAttach = (func) => {
+  const editor = inkdrop.getActiveEditor();
+  if (editor == null) {
+    setTimeout(() => reAttach(func), 1000);
+    return;
+  }
+
+  func(editor);
 };
 
 /*
@@ -39,7 +53,7 @@ const onEditorLoad = (func) => {
 
 onEditorLoad((editor) => {
   editor.cm.setOption("cursorBlinkRate", 0);
-});
+}, true);
 
 /*
  * more の位置を変える
@@ -199,7 +213,11 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", (ev) => {
   setTimeout(() => {
     // to avoid visual mode
     const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
-    const cm = inkdrop.getActiveEditor().cm;
+    const editor = inkdrop.getActiveEditor();
+    if (editor == null) {
+      return;
+    }
+    const cm = editor.cm;
     vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
 
     // to set search word
