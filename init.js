@@ -207,7 +207,6 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
 });
 
 inkdrop.commands.add(document.body, "mycmd:editor-focus", (ev) => {
-  console.log("mycmd:editor-focus");
   inkdrop.commands.dispatch(document.body, "editor:focus");
   imeoff();
   setTimeout(() => {
