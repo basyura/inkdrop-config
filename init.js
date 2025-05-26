@@ -28,13 +28,9 @@ const onEditorLoad = (func, isReAttach) => {
   const editor = inkdrop.activeEditor;
   if (editor != null) {
     func(editor);
-  } else {
-    inkdrop.onEditorLoad((editor) => func(editor));
   }
 
-  if (isReAttach) {
-    inkdrop.onEditorUnload(() => reAttach(func));
-  }
+  inkdrop.onEditorLoad(func);
 };
 
 const reAttach = (func) => {
