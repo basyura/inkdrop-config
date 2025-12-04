@@ -83,6 +83,7 @@
     "cmd-n": false,
     "ctrl-L": "sidetoc:width-decrease",
     "ctrl-K": "sidetoc:width-increase",
+    "ctrl-4": "short-link:toggle",
     "ctrl-5": "copy-notelink-to-clipboard:copy",
     "ctrl-cmd-r": "window:reload",
     "ctrl-n": "mycmd:noop",
