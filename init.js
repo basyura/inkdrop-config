@@ -296,7 +296,6 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   // url parse
   const urlReg = new RegExp(/(http.*?)( |\)|$)/g);
   [...str.matchAll(urlReg)].forEach((v) => {
-    //console.log(v);
     shell.openExternal(v[1]);
   });
   // inkdrop:// parse
@@ -313,8 +312,11 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
     // "myconfig": {
     //   "redmine_url": "http://redmine.org/issues/"
     // },
-    const issueUrl = inkdrop.config.get("myconfig.redmine_url") + v[1];
-    shell.openExternal(issueUrl);
+    const redmine_url = inkdrop.config.get("myconfig.redmine_url")
+    if (redmine_url != null) {
+      const issueUrl = redmine_url + v[1];
+      shell.openExternal(issueUrl);
+    }
   });
 });
 
