@@ -1,74 +1,6 @@
 {
-  ".CodeMirror.vim-mode.normal-mode textarea": {
-    "0": "vim:move-to-first-character-of-line",
-    "alt-p": "view:toggle-side-by-side",
-    "cmd-p": "view:toggle-side-by-side",
-    "alt-4": "mycmd:noop",
-    "e": "hitahint:show",
-    "escape": "mycmd:reset-normal-mode",
-    "space": "view:toggle-preview",
-    "tab": "mycmd:noop",
-    "ctrl-x ctrl-c": "mycmd:find-task",
-    "ctrl-r": "narrow-note:open",
-    "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
-    "ctrl-x ctrl-n": "narrow-book:open",
-    "ctrl-x ctrl-@": "mycmd:select-all-notes",
-    "ctrl-x ctrl-x": "mycmd:switch-main",
-    "ctrl-x ctrl-i": "mycmd:focus_title",
-    "ctrl-x ctrl-z": "mycmd:switch-zcrap",
-    "ctrl-x ctrl-l": "mycmd:refresh-note",
-    "ctrl-@": "narrow-tag:open",
-    "ctrl-s ctrl-s": "mycmd:open-scratch-note",
-    "ctrl-s ctrl-i": "mycmd:open-idea-note",
-    "ctrl-a ctrl-a": "editor:select-all",
-    "ctrl-.": "mycmd:open-next-note",
-    "ctrl-,": "mycmd:open-prev-note",
-    "ctrl-e": "vim:move-to-last-character-of-line",
-    "U": "core:redo",
-    "j": "vim:move-down-by-display-lines",
-    "k": "vim:move-up-by-display-lines",
-    "enter": "mycmd:open-cursor-link",
-    "ctrl-m": "mycmd:open-current-line-links",
-    "ctrl-k": "mycmd:open-current-line-links",
-    "ctrl-q": "core:find",
-    "ctrl-n": "sidetoc:jump-next",
-    "ctrl-p": "sidetoc:jump-prev",
-    "ctrl-x ctrl-e": "sidetoc:wraptext-toggle",
-    "ctrl-x ctrl-0": "sidetoc:width-reset",
-    "ctrl-o": "core:navigate-back",
-    "ctrl-i": "core:navigate-forward",
-    "H": "core:navigate-back",
-    "L": "core:navigate-forward",
-    "ctrl-f": "vtab:next",
-    "ctrl-b": "vtab:prev",
-    "ctrl-4": "short-link:toggle",
-    "ctrl-V": "paste-url:paste-url",
-    "ctrl-0": "font-size:reset",
-    "ctrl-;": "font-size:increase",
-    "ctrl--": "font-size:decrease"
-  },
-  ".CodeMirror.vim-mode.insert-mode textarea": {
-    "escape": "mycmd:escape",
-    "ctrl-d": "editor:delete-char-after",
-    "ctrl-a": "vim:move-to-beginning-of-line",
-    "ctrl-e": "editor:go-line-end",
-    "ctrl-k": "vim:delete-to-last-character-of-line",
-    "ctrl-f": "vim:move-right",
-    "ctrl-b": "vim:move-left",
-    "ctrl-[": "core:toggle-task-list",
-    "ctrl-v": "core:paste"
-  },
-  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea": {
-    "tab": "mycmd:noop"
-  },
-  ".CodeMirror.vim-mode.visual-mode textarea": {
-    "v": "vim:move-to-last-character-of-line"
-  },
   "body": {
     "f12": "window:toggle-dev-tools",
-    "ctrl-1": "bearlike-switch-view:toggle-one",
-    "ctrl-2": "bearlike-switch-view:toggle-two",
-    "ctrl-3": "bearlike-switch-view:toggle-three",
     "ctrl-r": "narrow-note:open",
     "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
     "ctrl-x ctrl-n": "narrow-book:open",
@@ -83,7 +15,6 @@
     "cmd-n": false,
     "ctrl-L": "sidetoc:width-decrease",
     "ctrl-K": "sidetoc:width-increase",
-    "ctrl-4": "short-link:toggle",
     "ctrl-5": "copy-notelink-to-clipboard:copy",
     "ctrl-cmd-r": "window:reload",
     "ctrl-n": "mycmd:noop",
@@ -93,11 +24,17 @@
     "ctrl-.": "mycmd:open-next-note",
     "ctrl-,": "mycmd:open-prev-note"
   },
+
+  ".cm-editor .cm-scroller": {
+    "ctrl-v": "core:paste"
+  },
+
   ".note-list-search-bar input": {
     "ctrl-w": "native!",
     "enter": "mycmd:focus-search"
   },
-  ".mde-preview": {
+
+  ".mde-preview-container": {
     "alt-p": "view:toggle-side-by-side",
     "ctrl-r": "narrow-note:open",
     "ctrl-x ctrl-r": "narrow-note:openOnlyInBook",
@@ -130,6 +67,9 @@
     "ctrl-s ctrl-s": "mycmd:open-scratch-note",
     "ctrl-s ctrl-i": "mycmd:open-idea-note",
     "space": "view:toggle-preview",
-    "ctrl-x ctrl-l": "mycmd:refresh-note"
+    "ctrl-x ctrl-l": "mycmd:refresh-note",
+    "ctrl-1": "bearlike-switch-view:toggle-one",
+    "ctrl-2": "bearlike-switch-view:toggle-two",
+    "ctrl-3": "bearlike-switch-view:toggle-three"
   }
 }

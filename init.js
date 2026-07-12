@@ -1,30 +1,10 @@
 const { shell } = window.require("electron");
 
-inkdrop.window.setMinimumSize(400, 400);
+const invoke = (command, param) => {
+  inkdrop.commands.dispatch(document.body, command, param);
+};
 
-/*
- * ウインドウが通常状態の場合、枠(Border)に色を付ける。
- */
-if (process.platform == "win32") {
-  const border = "solid gray";
-  const borderWidth = "2px 3px 3px 2px";
-  // check state
-  if (inkdrop.window.isNormal()) {
-    document.body.style.border = border;
-    document.body.style.borderWidth = borderWidth;
-  }
-  // add event
-  inkdrop.window.on("maximize", () => {
-    document.body.style.border = "";
-    document.body.style.borderWidth = borderWidth;
-  });
-  inkdrop.window.on("unmaximize", () => {
-    document.body.style.border = border;
-    document.body.style.borderWidth = borderWidth;
-  });
-}
-
-const onEditorLoad = (func, isReAttach) => {
+const onEditorLoad = (func) => {
   const editor = inkdrop.activeEditor;
   if (editor != null) {
     func(editor);
@@ -33,67 +13,124 @@ const onEditorLoad = (func, isReAttach) => {
   inkdrop.onEditorLoad(func);
 };
 
-const reAttach = (func) => {
-  const editor = inkdrop.getActiveEditor();
-  if (editor == null) {
-    setTimeout(() => reAttach(func), 1000);
+inkdrop.window.setMinimumSize(400, 400);
+/*
+ * ウインドウが通常状態の場合、枠(Border)に色を付ける。
+ */
+if (process.platform == "win32") {
+  const border = "solid gray";
+  const borderWidth = "2px 3px 3px 2px";
+  // check state
+  // if (inkdrop.window.isNormal()) {
+  //   document.body.style.border = border;
+  //   document.body.style.borderWidth = borderWidth;
+  // }
+  // // add event
+  // inkdrop.window.on("maximize", () => {
+  //   document.body.style.border = "";
+  //   document.body.style.borderWidth = borderWidth;
+  // });
+  // inkdrop.window.on("unmaximize", () => {
+  //   document.body.style.border = border;
+  //   document.body.style.borderWidth = borderWidth;
+  // });
+}
+
+const imeoff = () => {
+  const { execSync } = require("child_process");
+  if (process.platform == "darwin") {
+    execSync("/usr/local/bin/im-select com.google.inputmethod.Japanese.Roman");
     return;
   }
 
-  func(editor);
+  // Send "{vk1Dsc07B}" by converted AutoHotKey exe
+  execSync("imeoff.exe");
 };
 
-/*
- * カーソルを点滅させない
- */
-
-onEditorLoad((editor) => {
-  editor.cm.setOption("cursorBlinkRate", 0);
-}, true);
-
-/*
- * more の位置を変える
- */
-onEditorLoad((_) => {
-  const more = document.querySelector(".editor-header-more button");
-  more.style.position = "absolute";
-  more.style.marginLeft = "-25px";
-  more.style.background = "none";
-  more.style.border = "none";
-  more.style.cursor = "pointer";
-
-  const g = more.querySelector("g");
-  g.setAttribute("stroke", "darkgray");
-
-  const tags = document.querySelector(".note-tags-bar-input");
-  tags.appendChild(more);
-});
-
-/*
- * spellcheck をオフにする
- */
-onEditorLoad((_) => {
-  const ele = document.querySelector(
-    ".editor-header-title-input.ui.input input[type='text']"
+function dom(n) {
+  if (typeof n === "string") n = document.createElement(n);
+  for (var i = 1; i < arguments.length; i++) {
+    var a = arguments[i];
+    if (!a) continue;
+    if (typeof a !== "object") a = document.createTextNode(a);
+    if (a.nodeType) n.appendChild(a);
+    else
+      for (var key in a) {
+        if (!Object.prototype.hasOwnProperty.call(a, key)) continue;
+        if (key[0] === "$") n.style[key.slice(1)] = a[key];
+        else if (typeof a[key] == "function") n[key] = a[key];
+        else n.setAttribute(key, a[key]);
+      }
+  }
+  return n;
+}
+// メッセージ表示 (Vim Plugin から拝借)
+function showConfirm(template, duration) {
+  if (duration === undefined) {
+    duration = 2000;
+  }
+  const pre = dom(
+    "div",
+    { $color: "red", $whiteSpace: "pre", class: "cm-vim-message" },
+    template
   );
-  ele.spellcheck = false;
-});
+  const { cm } = inkdrop.getActiveEditor();
+  if (cm == null) {
+    return;
+  }
+  /*
+    if (long) {
+      pre = dom(
+        "div",
+        {},
+        pre,
+        dom("div", {}, "Press ENTER or type command to continue")
+      );
+      if (cm.state.closeVimNotification) {
+        cm.state.closeVimNotification();
+      }
+      cm.state.closeVimNotification = cm.openNotification(pre, {
+        bottom: true,
+        duration: 0,
+      });
+    } else {
+      cm.openNotification(pre, { bottom: true, duration: 15000 });
+    }
+    */
+  cm.openNotification(pre, { bottom: true, duration });
+}
 
+// 最大化の解除
+function unmaximize() {
+  if (inkdrop.window.isMaximized()) {
+    inkdrop.window.unmaximize();
+  }
+}
+
+function isPreviewMode() {
+  const ele = document.querySelector(".editor");
+  return ele.classList.contains("editor-viewmode-preview");
+}
+
+const sync = () => {
+  console.log("sync ...");
+  showConfirm("sync ...");
+  const { ipcRenderer } = require("electron");
+  ipcRenderer.send("command", "application:sync-db", {});
+};
 /*
  * フォーカスが当たった際に同期する
  */
 let lastBlurTime_ = new Date();
-inkdrop.window.on("focus", () => {
+inkdrop.window.onFocus(() => {
   const diff = new Date() - lastBlurTime_;
   if (diff > 1000 * 60 * 5) {
-    const { cm } = inkdrop.getActiveEditor();
-    showConfirm(cm, "sync ...");
-    const { ipcRenderer } = require("electron");
-    ipcRenderer.send("command", "application:sync-db", {});
+    sync();
+    lastBlurTime_ = new Date();
   }
 });
 
-inkdrop.window.on("blur", () => (lastBlurTime_ = new Date()));
+inkdrop.window.onBlur(() => (lastBlurTime_ = new Date()));
 
 // 検索テキストボックスで Enter したらエディタにフォーカスして Vim の検索キーワードにセットする
 inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
@@ -132,21 +169,6 @@ inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
     inkdrop.commands.dispatch(document.body, "editor:focus");
   }, 100);
 });
-
-const imeoff = () => {
-  const { execSync } = require("child_process");
-  if (process.platform == "darwin") {
-    execSync("/usr/local/bin/im-select com.google.inputmethod.Japanese.Roman");
-    return;
-  }
-
-  // Send "{vk1Dsc07B}" by converted AutoHotKey exe
-  execSync("imeoff.exe");
-};
-
-const invoke = (command, param) => {
-  inkdrop.commands.dispatch(document.body, command, param);
-};
 
 const switchBook = (name, status) => {
   const bookEle = document.querySelector(".book-name");
@@ -205,6 +227,7 @@ inkdrop.commands.add(document.body, "mycmd:select-active", () => {
 inkdrop.commands.add(document.body, "mycmd:editor-focus", (ev) => {
   inkdrop.commands.dispatch(document.body, "editor:focus");
   imeoff();
+  /*
   setTimeout(() => {
     // to avoid visual mode
     const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
@@ -224,13 +247,14 @@ inkdrop.commands.add(document.body, "mycmd:editor-focus", (ev) => {
       inkdrop.commands.dispatch(cm.getWrapperElement(), "vim:repeat-search");
     }
   }, 100);
+  */
   // set search word
 });
 
 inkdrop.commands.add(document.body, {
   "mycmd:focus_title": () => {
     const ele = document.querySelector(
-      ".editor-header-title-input.ui.input input[type='text']"
+      ".editor-title-bar-input  input[type='text']"
     );
     ele.focus();
   },
@@ -250,11 +274,11 @@ function openNote(mode) {
   inkdrop.commands.dispatch(document.body, "editor:focus");
 
   // to avoid visual mode
-  setTimeout(() => {
-    const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
-    const cm = inkdrop.getActiveEditor().cm;
-    vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
-  }, 100);
+  // setTimeout(() => {
+  //   const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+  //   const cm = inkdrop.getActiveEditor().cm;
+  //   vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
+  // }, 100);
 }
 
 inkdrop.commands.add(document.body, "mycmd:select-index", () => {
@@ -266,36 +290,49 @@ inkdrop.commands.add(document.body, "mycmd:select-index", () => {
 });
 
 inkdrop.commands.add(document.body, "mycmd:open-cursor-link", () => {
-  const cm = inkdrop.getActiveEditor().cm;
-  const cur = cm.getCursor();
-  const token = cm.getTokenAt(cur);
-  if (token.type == null) {
-    return;
-  }
-  // http(s)://
-  if (token.type == "url") {
-    shell.openExternal(token.string);
-    return;
-  }
-  // inkdrop://
-  if ((token.type = "string url")) {
-    if (token.string.indexOf("inkdrop://") == -1) {
-      return;
+  console.log("mycmd:open-cursor-link");
+
+  const view = inkdrop.getActiveEditor()?.cm?.cm6;
+  if (!view) return;
+
+  const pos = view.state.selection.main.head;
+  const line = view.state.doc.lineAt(pos);
+  const text = line.text;
+  const offsetInLine = pos - line.from;
+
+  const patterns = [/https?:\/\/[^\s)]+/g, /inkdrop:\/\/[^\s)]+/g];
+
+  for (const re of patterns) {
+    for (const m of text.matchAll(re)) {
+      const start = m.index;
+      const end = start + m[0].length;
+      if (start <= offsetInLine && offsetInLine <= end) {
+        const link = m[0];
+
+        if (link.startsWith("http://") || link.startsWith("https://")) {
+          shell.openExternal(link);
+          return;
+        }
+
+        if (link.startsWith("inkdrop://")) {
+          const noteId = link.replace("inkdrop://", "").replace("/", ":");
+          invoke("core:open-note", { noteId });
+          return;
+        }
+      }
     }
-    invoke("core:open-note", {
-      noteId: token.string.replace("inkdrop://", ""),
-    });
-    return;
   }
 });
 
 inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
-  const cm = inkdrop.getActiveEditor().cm;
-  const cur = cm.getCursor();
-  const str = cm.doc.getLine(cur.line);
+  const cm = inkdrop.getActiveEditor().cm.cm6;
+  const pos = cm.state.selection.main.head;
+  const line = cm.state.doc.lineAt(pos);
+  const str = line.text;
   // url parse
   const urlReg = new RegExp(/(http.*?)( |\)|$)/g);
   [...str.matchAll(urlReg)].forEach((v) => {
+    //console.log(v);
     shell.openExternal(v[1]);
   });
   // inkdrop:// parse
@@ -312,11 +349,8 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
     // "myconfig": {
     //   "redmine_url": "http://redmine.org/issues/"
     // },
-    const redmine_url = inkdrop.config.get("myconfig.redmine_url")
-    if (redmine_url != null) {
-      const issueUrl = redmine_url + v[1];
-      shell.openExternal(issueUrl);
-    }
+    const issueUrl = inkdrop.config.get("myconfig.redmine_url") + v[1];
+    shell.openExternal(issueUrl);
   });
 });
 
@@ -396,30 +430,8 @@ inkdrop.commands.add(document.body, "mycmd:refresh-note", () => {
   reopen();
 });
 
-// メッセージ表示 (Vim Plugin から拝借)
-function showConfirm(cm, text) {
-  if (cm.openNotification) {
-    cm.openNotification('<span style="color: red">' + text + "</span>", {
-      bottom: true,
-      duration: 5000,
-    });
-  } else {
-    alert(text);
-  }
-}
-// 最大化の解除
-function unmaximize() {
-  if (inkdrop.window.isMaximized()) {
-    inkdrop.window.unmaximize();
-  }
-}
-
-function isPreviewMode() {
-  const ele = document.querySelector(".editor");
-  return ele.classList.contains("editor-viewmode-preview");
-}
-
 //----- vim plugin's command -----//
+/*
 onEditorLoad(() => {
   setTimeout(() => initializeVimCommands(), 3000);
 });
@@ -550,3 +562,57 @@ function initializeVimCommands() {
 
   return true;
 }
+*/
+
+function configureVimKeyBindings() {
+  const Vim = inkdrop.packages.getLoadedPackage("vim").mainModule.Vim;
+  function noremap(key, cmd) {
+    Vim.noremap(key, ":cmd " + cmd + "<CR>");
+  }
+
+  noremap("<C-n>", "sidetoc:jump-next");
+  noremap("<C-p>", "sidetoc:jump-prev");
+  noremap("<C-r>", "narrow-note:open");
+  noremap("<C-o>", "core:navigate-back");
+  noremap("<C-q>", "core:find");
+  noremap("<C-i>", "core:navigate-forward");
+  noremap("<Space>", "view:toggle-preview");
+  noremap("e", "hitahint:show");
+
+  noremap("<C-0>", "font-size:reset");
+  noremap("<C-;>", "font-size:increase");
+  noremap("<C-->", "font-size:decrease");
+
+  noremap("<CR>", "mycmd:open-cursor-link");
+  noremap("<C-m>", "mycmd:open-current-line-links");
+
+  noremap("<C-1>", "bearlike-switch-view:toggle-one");
+  noremap("<C-2>", "bearlike-switch-view:toggle-two");
+  noremap("<C-3>", "bearlike-switch-view:toggle-three");
+  noremap("<C-4>", "link-compact:toggle");
+
+  Vim.unmap("<C-x>");
+  noremap("<C-x><C-n>", "narrow-book:open");
+  noremap("<C-x><C-x>", "mycmd:switch-main");
+  noremap("<C-x><C-i>", "mycmd:focus_title");
+  noremap("<C-s><C-i>", "mycmd:open-idea-note");
+
+  Vim.map("<C-[>", "* [ ] ", "insert");
+
+  Vim.noremap("j", "gj");
+  Vim.noremap("k", "gk");
+  Vim.noremap("<C-e>", "$");
+  Vim.noremap("U", "<C-r>"); // redo
+  Vim.noremap("v", "$h", "visual");
+}
+
+// エディタロード時の初期処理
+onEditorLoad(() => {
+  // spell check off
+  const ele = document.querySelector("div.editor-title-bar-input input");
+  ele.spellcheck = false;
+  // vim
+  configureVimKeyBindings();
+  // sync
+  sync();
+});
