@@ -153,6 +153,13 @@ body {
           }
           .md-codeblock {
             max-width: unset;
+            .tok-heading-1,
+            .tok-heading-2,
+            .tok-heading-3 {
+              font-size: 14px;
+              font-weight: normal;
+              color: unset;
+            }
           }
           /* tok-heading-1 をクラスに持つ要素を子に持つ親要素 */
           .cm-line:has(> .tok-heading-1) {
@@ -313,6 +320,12 @@ body {
       .mde-preview-code-body {
         background-color: unset;
         font-size: 115%;
+      }
+    }
+    .mde-preview-code-body {
+      .tok-heading-2 {
+        font-weight: unset;
+        color: unset;
       }
     }
     blockquote {
