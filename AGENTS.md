@@ -21,6 +21,12 @@ Inkdrop Canary のユーザーデータは次の場所にある。
 ~/Library/Application Support/inkdrop-canary
 ```
 
+インストール済みのプラグインは次の場所にある。
+
+```text
+~/Library/Application Support/inkdrop-canary/packages
+```
+
 展開先にある `init.js_`、`styles.less_`、`keymap.json_` などを
 直接編集する前に、このリポジトリとの対応関係を確認すること。
 

@@ -410,8 +410,9 @@ body {
 }
 
 /* カーソル */
-.cm-fat-cursor {
-  color: var(--editor-foreground-color) !important; /* カーソル位置の文字色 */
+.vim-mode-normal .cm-fat-cursor {
+  /* 背面の装飾文字を見せるため、Vim が複製する文字を隠す */
+  color: transparent !important;
 }
 
 .cm-cursorLayer {
