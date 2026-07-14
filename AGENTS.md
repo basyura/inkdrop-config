@@ -12,7 +12,7 @@
 
 - `init.js`: Inkdrop 起動時に実行する初期処理
 - `styles.less`: Inkdrop 全体に適用するスタイル
-- `styles.local.less`: 環境固有の追加スタイル
+- `styles.local.less`: 環境固有の追加スタイル。Git の管理対象外
 - `keymap.json`: キー割り当て
 
 Inkdrop Canary のユーザーデータは次の場所にある。
@@ -27,8 +27,27 @@ Inkdrop Canary のユーザーデータは次の場所にある。
 ~/Library/Application Support/inkdrop-canary/packages
 ```
 
-展開先にある `init.js_`、`styles.less_`、`keymap.json_` などを
-直接編集する前に、このリポジトリとの対応関係を確認すること。
+アプリケーションとユーザーデータの対応は次のとおり。
+
+- `/Applications/Inkdrop.app`: 安定版
+- `/Applications/Inkdrop 2.app`: Canary 版
+- Canary 版は `inkdrop-canary` のユーザーデータを使用する
+
+Canary のユーザーデータにある `init.js`、`styles.less`、`keymap.json` は、
+このリポジトリにある同名ファイルへのシンボリックリンクである。
+展開先を編集した場合も、リポジトリのファイルが直接変更される。
+末尾に `_` が付いた `init.js_`、`styles.less_`、`keymap.json_` は
+別ファイルであるため、編集前に用途と対応関係を確認すること。
+
+`styles.local.less` は Git の管理対象外である。利用する場合は、
+Inkdrop への反映方法を確認してから編集すること。
+
+`account`、`encryption-key`、データベース、Cookie などの機密データは、
+利用者から依頼されていない限り、読み取り、表示、変更しないこと。
+
+`packages` 配下はプラグイン更新によって上書きされる可能性がある。
+原則として調査目的の読み取りに限定し、直接修正する場合は事前に
+利用者へ確認すること。
 
 ## Inkdrop の DOM を確認する方法
 
@@ -107,4 +126,8 @@ import(
   `docs/plans` 配下へ連番で作成すること。
 - 計画作成後は Shiba.app で表示し、修正を進めるか確認すること。
 - 利用者の指示なしに、展開先のファイルを直接上書きしないこと。
+- 修正後は `git diff --check` を実行すること。
+- `keymap.json` を修正した場合は JSON の構文を確認すること。
+- スタイルを修正した場合は、必要に応じて Inkdrop の再読み込み後に
+  DevTools で DOM と計算済みスタイルを確認すること。
 
