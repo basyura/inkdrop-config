@@ -170,8 +170,9 @@ body {
             color: #77ccbd;
           }
           .md-link-mark {
-            color: black !important;
-            font-size: 5pt;
+            color: rgba(119,204,189,0.3);
+            /* color: black !important; */
+            /* font-size: 5pt; */
             margin-left: -2px;
           }
           .tok-link {
@@ -367,6 +368,11 @@ body {
   div.note-list-header > button:nth-of-type(2) {
     display: none;
   }
+  .note-list-header {
+    .create-note-button {
+      /* display: none; */
+    }
+  }
   .note-list-bar {
     .summary {
       display: none;
@@ -376,6 +382,11 @@ body {
 
 /* サイドバー */
 .sidebar-layout {
+  .app-control-view {
+    .app-control-buttons {
+      display: none;
+    }
+  }
   .sidebar-layout-content {
     background-color: #2e3235;
     .status-message {
