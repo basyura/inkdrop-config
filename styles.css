@@ -347,6 +347,17 @@ body {
     img {
       width: 600px;
     }
+    .internal-note-link {
+      svg {
+        display: none;
+      }
+      .task-progress-view {
+        display: none;
+      }
+      .tag-list {
+        display: none;
+      }
+    }
   }
 }
 
