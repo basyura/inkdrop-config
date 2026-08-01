@@ -71,5 +71,9 @@
     "ctrl-1": "bearlike-switch-view:toggle-one",
     "ctrl-2": "bearlike-switch-view:toggle-two",
     "ctrl-3": "bearlike-switch-view:toggle-three"
+  },
+
+  ".editor-title-bar-layout input[type='text']": {
+    "enter": "mycmd:editor-focus"
   }
 }
