@@ -576,6 +576,7 @@ function configureVimKeyBindings() {
   noremap("<C-o>", "core:navigate-back");
   noremap("<C-q>", "core:find");
   noremap("<C-i>", "core:navigate-forward");
+  noremap("<C-s>", "core:save-note");
   noremap("<Space>", "view:toggle-preview");
   noremap("e", "hitahint:show");
 
