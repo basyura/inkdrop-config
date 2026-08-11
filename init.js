@@ -1,4 +1,6 @@
-const { shell } = window.require("electron");
+const { shell } = globalThis.require("electron");
+const fs = globalThis.require("fs");
+const path = globalThis.require("path");
 
 const invoke = (command, param) => {
   inkdrop.commands.dispatch(document.body, command, param);
@@ -14,6 +16,24 @@ const onEditorLoad = (func) => {
 };
 
 inkdrop.window.setMinimumSize(400, 400);
+
+// load styles.local.css
+{
+  const userStylePath = inkdrop.styles.getUserStyleSheetPath();
+  const localStylePath = path.join(
+    path.dirname(userStylePath),
+    "styles.local.css"
+  );
+
+  if (fs.existsSync(localStylePath)) {
+    const css = fs.readFileSync(localStylePath, "utf8");
+    inkdrop.styles.addStyleSheet(css, {
+      sourcePath: localStylePath,
+      priority: 21,
+    });
+  }
+}
+
 /*
  * ウインドウが通常状態の場合、枠(Border)に色を付ける。
  */
