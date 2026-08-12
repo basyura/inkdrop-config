@@ -15,25 +15,24 @@
 - `styles.local.less`: 環境固有の追加スタイル。Git の管理対象外
 - `keymap.json`: キー割り当て
 
-Inkdrop Canary のユーザーデータは次の場所にある。
+通常版 Inkdrop のユーザーデータは次の場所にある。
 
 ```text
-~/Library/Application Support/inkdrop-canary
+~/Library/Application Support/inkdrop
 ```
 
 インストール済みのプラグインは次の場所にある。
 
 ```text
-~/Library/Application Support/inkdrop-canary/packages
+~/Library/Application Support/inkdrop/packages
 ```
 
 アプリケーションとユーザーデータの対応は次のとおり。
 
-- `/Applications/Inkdrop.app`: 安定版
-- `/Applications/Inkdrop 2.app`: Canary 版
-- Canary 版は `inkdrop-canary` のユーザーデータを使用する
+- `/Applications/Inkdrop.app`: 通常版
+- 通常版は `inkdrop` のユーザーデータを使用する
 
-Canary のユーザーデータにある `init.js`、`styles.less`、`keymap.json` は、
+通常版のユーザーデータにある `init.js`、`styles.less`、`keymap.json` は、
 このリポジトリにある同名ファイルへのシンボリックリンクである。
 展開先を編集した場合も、リポジトリのファイルが直接変更される。
 末尾に `_` が付いた `init.js_`、`styles.less_`、`keymap.json_` は
@@ -49,12 +48,12 @@ Inkdrop への反映方法を確認してから編集すること。
 原則として調査目的の読み取りに限定し、直接修正する場合は事前に
 利用者へ確認すること。
 
-## Inkdrop の DOM を確認する方法
+## 起動中の Inkdrop の DOM とスタイルを確認する方法
 
 ### 1. 起動状態を確認する
 
 ```sh
-pgrep -afil '/Applications/Inkdrop 2.app/Contents/MacOS/Inkdrop'
+pgrep -afil '/Applications/Inkdrop.app/Contents/MacOS/Inkdrop'
 ```
 
 起動引数に `--remote-debugging-port=9222` がない場合は、Inkdrop を
@@ -62,8 +61,8 @@ pgrep -afil '/Applications/Inkdrop 2.app/Contents/MacOS/Inkdrop'
 再起動前に、未保存の編集内容がないことを利用者へ確認すること。
 
 ```sh
-osascript -e 'tell application "Inkdrop 2" to quit'
-open -a 'Inkdrop 2' --args \
+osascript -e 'tell application "Inkdrop" to quit'
+open -a 'Inkdrop' --args \
   --remote-debugging-address=127.0.0.1 \
   --remote-debugging-port=9222
 ```
@@ -78,7 +77,7 @@ Inkdrop のページ情報と `webSocketDebuggerUrl` が返れば接続できる
 実行環境でローカル通信が制限されている場合は、必要な許可を得て
 コマンドを実行すること。
 
-### 3. Playwright で DOM を取得する
+### 3. Playwright で DOM とスタイルを取得する
 
 Codex.app に同梱された Node.js と Playwright を使用できる場合は、
 Chrome DevTools Protocol 経由で Inkdrop に接続する。
@@ -91,12 +90,32 @@ import(
 ).then(async ({ chromium }) => {
   const browser = await chromium.connectOverCDP("http://127.0.0.1:9222");
   const page = browser.contexts()[0].pages()[0];
-  const result = await page.locator("div.editor-layout").evaluate(element => ({
-    tagName: element.tagName,
-    className: element.className,
-    childElementCount: element.childElementCount,
-    outerHTML: element.outerHTML
-  }));
+  const result = await page.locator("div.editor-layout").evaluate(element => {
+    const style = getComputedStyle(element);
+    const rect = element.getBoundingClientRect();
+    return {
+      tagName: element.tagName,
+      className: element.className,
+      childElementCount: element.childElementCount,
+      outerHTML: element.outerHTML,
+      computedStyle: {
+        display: style.display,
+        position: style.position,
+        color: style.color,
+        backgroundColor: style.backgroundColor,
+        width: style.width,
+        height: style.height,
+        margin: style.margin,
+        padding: style.padding
+      },
+      rect: {
+        x: rect.x,
+        y: rect.y,
+        width: rect.width,
+        height: rect.height
+      }
+    };
+  });
   console.log(JSON.stringify(result, null, 2));
   await browser.close();
 }).catch(error => {
@@ -107,8 +126,7 @@ import(
 ```
 
 対象を変更する場合は、`page.locator("div.editor-layout")` のセレクターを
-置き換える。レイアウト確認では `getComputedStyle(element)` と
-`element.getBoundingClientRect()` も利用する。
+置き換える。確認する CSS プロパティは `computedStyle` 内へ追加する。
 
 ## 接続時の注意
 
@@ -130,4 +148,3 @@ import(
 - `keymap.json` を修正した場合は JSON の構文を確認すること。
 - スタイルを修正した場合は、必要に応じて Inkdrop の再読み込み後に
   DevTools で DOM と計算済みスタイルを確認すること。
-
