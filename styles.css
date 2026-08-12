@@ -7,6 +7,21 @@ body {
   color: #fafafade;
 }
 
+/* Drag */
+.editor-layout {
+  .editor-title-bar-layout,
+  .editor-meta-layout {
+    app-region: drag;
+  }
+
+  .editor-title-bar-layout input[type="text"],
+  .editor-meta-layout > .editor-meta-notebook,
+  .editor-meta-layout > .note-status-picker,
+  .editor-meta-layout .note-tags-bar {
+    app-region: no-drag;
+  }
+}
+
 /* エディター */
 .editor-layout {
   background-color: #2e3235;
