@@ -94,7 +94,8 @@ body {
     grid-column: 2;
     grid-row: 2;
     box-sizing: border-box;
-    width: 100%;
+    width: auto;
+    margin-right: 50px;
     min-width: 0;
     align-items: center;
     justify-content: flex-start;
