@@ -1,4 +1,9 @@
 {
+  "*" : {
+    "ctrl-a": "editor:go-line-start",
+    "ctrl-e": "editor:go-line-end"
+  },
+
   "body": {
     "f12": "window:toggle-dev-tools",
     "ctrl-r": "narrow-note:open",
