@@ -500,6 +500,7 @@ body {
 .link-compact-enabled .md-link-mark {
   color: rgba(119, 204, 189, 0.3);
   color: black !important;
-  font-size: 5pt;
-  margin-left: -2px;
+  font-size: 1pt;
+  margin-left: 2px;
+  // display: none;
 }
