@@ -349,29 +349,35 @@ inkdrop.commands.add(document.body, "mycmd:open-current-line-links", () => {
   const pos = cm.state.selection.main.head;
   const line = cm.state.doc.lineAt(pos);
   const str = line.text;
+  // target urls
+  const targets = {};
   // url parse
   const urlReg = new RegExp(/(http.*?)( |\)|$)/g);
   [...str.matchAll(urlReg)].forEach((v) => {
     //console.log(v);
-    shell.openExternal(v[1]);
+    const url = v[1];
+    targets[url] = () => shell.openExternal(url);
   });
   // inkdrop:// parse
   const idReg = new RegExp(/(inkdrop:\/\/.*?)( |\)|$)/g);
   const matches = [...str.matchAll(idReg)];
   if (matches.length > 0) {
     const noteId = matches[0][1].replace("inkdrop://", "").replace("/", ":");
-    invoke("core:open-note", { noteId });
+    targets[noteId] = () => invoke("core:open-note", { noteId });
   }
   // #12345 でチケット番号をパース
   const issueReg = new RegExp(/#(\d+)/g);
   [...str.matchAll(issueReg)].forEach((v) => {
-    // config.json に設定を記載
-    // "myconfig": {
-    //   "redmine_url": "http://redmine.org/issues/"
-    // },
-    const issueUrl = inkdrop.config.get("myconfig.redmine_url") + v[1];
-    shell.openExternal(issueUrl);
+    const redmineUrl = inkdrop.config.get("myconfig.redmine_url");
+    if (redmineUrl != null) {
+      const issueUrl = redmineUrl + v[1];
+      targets[issueUrl] = () => shell.openExternal(issueUrl);
+    }
   });
+
+  for (const key in targets) {
+    targets[key]();
+  }
 });
 
 inkdrop.commands.add(document.body, "mycmd:insertAndSpace", () => {
