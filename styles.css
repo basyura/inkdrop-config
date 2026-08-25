@@ -204,12 +204,22 @@ body {
           }
           /* リスト形式の表示(マーク)変更 */
           .md-list-mark {
-            color: transparent;
+            color: transparent !important;
           }
           .md-list-mark::before {
             content: "•";
             margin-right: -7px;
             color: #fac4fe !important;
+          }
+          .cm-matchingBracket .tok-content {
+            color: orange !important;
+          }
+          .md-alert-heading-caution {
+            color: red !important;
+            font-weight: bold;
+          }
+          .md-alert-quote-mark-caution {
+            color: red !important;
           }
           .cm-placeholder {
             display: none !important;
