@@ -32,7 +32,8 @@
 
   ".cm-editor .cm-scroller": {
     "ctrl-v": "core:paste",
-    "ctrl-l": "sidetoc:sidetoc-toggle"
+    "ctrl-l": "sidetoc:sidetoc-toggle",
+    "ctrl-enter": "mycmd:noop"
   },
 
   ".note-list-search-bar input": {
