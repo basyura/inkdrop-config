@@ -165,6 +165,14 @@ body {
           }
           .md-table {
             max-width: unset;
+            background-color: transparent;
+          }
+          .md-table::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            pointer-events: none;
             background-color: var(--editor-background-color);
           }
           .md-table-delimiter {
