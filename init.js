@@ -641,7 +641,13 @@ document.addEventListener(
     }
 
     queueMicrotask(() => {
-      console.log("save !!!!!!!!");
+      const time = new Date().toLocaleTimeString("ja-JP", {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      console.log("save @", time);
       inkdrop.commands.dispatch(document.body, "core:save-note");
     });
   },
