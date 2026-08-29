@@ -633,6 +633,20 @@ function configureVimKeyBindings() {
   Vim.noremap("v", "$h", "visual");
 }
 
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    queueMicrotask(() => {
+      console.log("save !!!!!!!!");
+      inkdrop.commands.dispatch(document.body, "core:save-note");
+    });
+  },
+  true
+);
 // エディタロード時の初期処理
 onEditorLoad(() => {
   // spell check off
