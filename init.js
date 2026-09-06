@@ -628,6 +628,7 @@ function configureVimKeyBindings() {
   noremap("<C-x><C-x>", "mycmd:switch-main");
   noremap("<C-x><C-i>", "mycmd:focus_title");
   noremap("<C-x><C-m>", "mycmd:open-memo-note");
+  noremap("<C-x><C-p>", "application:open-preferences");
 
   Vim.map("<C-[>", "* [ ] ", "insert");
 
