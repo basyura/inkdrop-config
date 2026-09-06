@@ -81,6 +81,8 @@
   },
 
   ".editor-title-bar-layout input[type='text']": {
-    "enter": "mycmd:editor-focus"
+    "enter": "mycmd:editor-focus",
+    "ctrl-a": "native!",
+    "ctrl-e": "native!"
   }
 }
