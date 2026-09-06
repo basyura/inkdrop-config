@@ -438,6 +438,11 @@ inkdrop.commands.add(document.body, "mycmd:open-idea-note", () => {
   setTimeout(() => invoke("editor:focus"), 700);
 });
 
+inkdrop.commands.add(document.body, "mycmd:open-memo-note", () => {
+  invoke("core:open-note", { noteId: "note:uykWJtW_" });
+  setTimeout(() => invoke("editor:focus"), 700);
+});
+
 inkdrop.commands.add(document.body, "mycmd:refresh-note", () => {
   const id = inkdrop.activeEditor.props.noteId;
   // 作成済みの blank ページへ
@@ -602,7 +607,6 @@ function configureVimKeyBindings() {
   noremap("<C-o>", "core:navigate-back");
   noremap("<C-q>", "core:find");
   noremap("<C-i>", "core:navigate-forward");
-  noremap("<C-s>", "core:save-note");
   noremap("<Space>", "view:toggle-preview");
   noremap("<Tab>", "mycmd:noop");
   noremap("e", "hitahint:show");
@@ -623,7 +627,7 @@ function configureVimKeyBindings() {
   noremap("<C-x><C-n>", "narrow-book:open");
   noremap("<C-x><C-x>", "mycmd:switch-main");
   noremap("<C-x><C-i>", "mycmd:focus_title");
-  noremap("<C-s><C-i>", "mycmd:open-idea-note");
+  noremap("<C-x><C-m>", "mycmd:open-memo-note");
 
   Vim.map("<C-[>", "* [ ] ", "insert");
 
@@ -648,7 +652,7 @@ document.addEventListener(
         minute: "2-digit",
         second: "2-digit",
       });
-      console.log("save @", time);
+      // console.log("save @", time);
       inkdrop.commands.dispatch(document.body, "core:save-note");
     });
   },
