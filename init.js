@@ -604,6 +604,7 @@ function configureVimKeyBindings() {
   noremap("<C-i>", "core:navigate-forward");
   noremap("<C-s>", "core:save-note");
   noremap("<Space>", "view:toggle-preview");
+  noremap("<Tab>", "mycmd:noop");
   noremap("e", "hitahint:show");
 
   noremap("<C-0>", "font-size:reset");
