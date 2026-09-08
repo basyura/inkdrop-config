@@ -149,6 +149,9 @@ body {
             color: var(--editor-foreground-color);
             font-weight: normal;
           }
+          .tok-quote {
+            font-style: normal;
+          }
           .tok-heading-1,
           .tok-heading-2,
           .tok-heading-3 {
