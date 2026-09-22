@@ -134,7 +134,7 @@ function isPreviewMode() {
 
 const sync = () => {
   console.log("sync ...");
-  showConfirm("sync ...");
+  // showConfirm("sync ...");
   const { ipcRenderer } = require("electron");
   ipcRenderer.send("command", "application:sync-db", {});
 };
@@ -150,7 +150,10 @@ inkdrop.window.onFocus(() => {
   }
 });
 
-inkdrop.window.onBlur(() => (lastBlurTime_ = new Date()));
+inkdrop.window.onBlur(() => {
+  sync();
+  lastBlurTime_ = new Date();
+});
 
 // 検索テキストボックスで Enter したらエディタにフォーカスして Vim の検索キーワードにセットする
 inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
@@ -639,20 +642,21 @@ function configureVimKeyBindings() {
   Vim.noremap("v", "$h", "visual");
 }
 
-document.addEventListener(
-  "keydown",
-  (event) => {
-    if (event.key !== "Escape") {
-      return;
-    }
+// document.addEventListener(
+//   "keydown",
+//   (event) => {
+//     if (event.key !== "Escape") {
+//       return;
+//     }
 
-    queueMicrotask(() => {
-      inkdrop.commands.dispatch(document.body, "core:save-note");
-    });
-  },
-  true
-);
+//     queueMicrotask(() => {
+//       inkdrop.commands.dispatch(document.body, "core:save-note");
+//     });
+//   },
+//   true
+// );
 // エディタロード時の初期処理
+let hasSyncedOnEditorLoad = false;
 onEditorLoad(() => {
   // spell check off
   const ele = document.querySelector("div.editor-title-bar-input input");
@@ -660,5 +664,8 @@ onEditorLoad(() => {
   // vim
   configureVimKeyBindings();
   // sync
-  sync();
+  if (!hasSyncedOnEditorLoad) {
+    sync();
+    hasSyncedOnEditorLoad = true;
+  }
 });
