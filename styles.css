@@ -323,6 +323,11 @@ body {
       content: "## ";
       padding-right: 1px;
     }
+    h3::before {
+      color: rgba(250, 207, 78, 0.5) !important;
+      content: "### ";
+      padding-right: 1px;
+    }
     p {
       line-height: 170%;
     }
