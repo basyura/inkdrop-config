@@ -207,11 +207,10 @@ body {
           }
           .cm-strong {
             color: #facf4e;
-            font-weight: normal;
           }
           .md-emphasis-mark {
             color: rgba(255, 165, 0, 0.5);
-            font-size: 5pt;
+            font-size: 4pt;
           }
           /* リスト形式の表示(マーク)変更 */
           .md-list-mark {
@@ -388,7 +387,6 @@ body {
     }
     strong {
       color: #facf4e;
-      font-weight: normal;
     }
     img {
       width: 600px;
@@ -522,11 +520,3 @@ body {
   // background: rgba(255, 168, 125, 0.4) !important;
 }
 
-/* link-compact */
-.link-compact-enabled .md-link-mark {
-  color: rgba(119, 204, 189, 0.3);
-  color: black !important;
-  font-size: 1pt;
-  margin-left: 2px;
-  // display: none;
-}
