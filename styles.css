@@ -210,7 +210,7 @@ body {
           }
           .md-emphasis-mark {
             color: rgba(255, 165, 0, 0.5);
-            font-size: 4pt;
+            /* font-size: 4pt; */
           }
           /* リスト形式の表示(マーク)変更 */
           .md-list-mark {
