@@ -290,7 +290,7 @@ body {
       display: none;
     }
     * {
-      line-height: 160%;
+      line-height: 140%;
     }
     h1,
     h2,
@@ -520,3 +520,22 @@ body {
   // background: rgba(255, 168, 125, 0.4) !important;
 }
 
+/* for vim plugin's yanked message. 
+ * Keep notifications out of both the layout and CodeMirror's scroll margins.
+ */
+.cm-panels-bottom:has(> .cm-vim-panel:only-child):not(:has(input)) {
+  display:none;
+  /*
+  position: absolute;
+  height: 0;
+  border-top: none;
+  > .cm-vim-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color:white;
+    background-color: #2e3235;
+  }
+  */
+}
