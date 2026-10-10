@@ -61,7 +61,7 @@ body {
     display: flex;
     width: 100%;
     min-width: 200px;
-    .editor-title-bar-input.ui.input {
+    .editor-title-bar-input {
       display: flex;
       flex: 1 1 0;
       width: 100%;
