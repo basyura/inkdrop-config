@@ -253,7 +253,6 @@ body {
             justify-content: left;
           }
           .md-inline-code {
-            // padding: 0px;
             padding-left: 4px;
             padding-right: 4px;
             border: 0px;
@@ -517,15 +516,12 @@ body {
 /* 選択色 */
 .cm-selectionBackground {
   background: #465463 !important;
-  // background: rgba(255, 168, 125, 0.4) !important;
 }
 
 /* for vim plugin's yanked message. 
  * Keep notifications out of both the layout and CodeMirror's scroll margins.
  */
 .cm-panels-bottom:has(> .cm-vim-panel:only-child):not(:has(input)) {
-  display:none;
-  /*
   position: absolute;
   height: 0;
   border-top: none;
@@ -534,8 +530,9 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    color:white;
-    background-color: #2e3235;
+    background-color: transparent;
   }
-  */
+  > .cm-vim-panel * {
+    color: transparent !important;
+  }
 }
