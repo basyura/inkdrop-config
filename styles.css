@@ -536,3 +536,8 @@ body {
     color: transparent !important;
   }
 }
+
+/* エディタの横スクロールバーを非表示 */
+.editor .mde .cm-scroller::-webkit-scrollbar:horizontal {
+  height: 0;
+}
