@@ -232,6 +232,7 @@ const showNotesInBook = (bookId, status) => {
     status,
     includeChildren: true,
   });
+  invoke("core:open-first-note");
 };
 
 inkdrop.commands.add(document.body, "mycmd:select-active", () => {
