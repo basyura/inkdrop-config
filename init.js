@@ -135,7 +135,7 @@ inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
     pf.find(ele.value);
 
     // vim
-    const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
+    const Vim = inkdrop.packages.getLoadedPackage("vim").mainModule.Vim;
     const editor = inkdrop.getActiveEditor();
     // 検索ワードがヒットしない場合
     if (editor == null) {
@@ -143,8 +143,8 @@ inkdrop.commands.add(document.body, "mycmd:focus-search", (ev) => {
     }
 
     const cm = editor.cm;
-    vim.exCommandDispatcher.processCommand(cm, "nohlsearch");
-    vim.getVimGlobalState().query = new RegExp(ele.value, "i");
+    Vim.handleEx(cm, "nohlsearch");
+    Vim.getVimGlobalState_().query = new RegExp(ele.value, "i");
     inkdrop.commands.dispatch(document.body, "editor:focus");
   }, 100);
 });
@@ -323,10 +323,10 @@ inkdrop.commands.add(document.body, "mycmd:reset-normal-mode", () => {
 });
 
 inkdrop.commands.add(document.body, "mycmd:find-task", () => {
-  const vim = inkdrop.packages.activePackages.vim.mainModule.vim;
-  vim.getVimGlobalState().query = /\[ \]/;
-  const el = inkdrop.getActiveEditor().cm.getWrapperElement();
-  inkdrop.commands.dispatch(el, "vim:repeat-search");
+  const Vim = inkdrop.packages.getLoadedPackage("vim").mainModule.Vim;
+  Vim.getVimGlobalState_().query = /\[ \]/;
+  const cm = inkdrop.getActiveEditor().cm;
+  Vim.handleKey(cm, "n");
 });
 
 inkdrop.commands.add(document.body, "mycmd:escape", () => {
