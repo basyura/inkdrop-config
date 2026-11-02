@@ -608,6 +608,7 @@ function configureVimKeyBindings() {
   noremap("<C-n>", "sidetoc:jump-next");
   noremap("<C-p>", "sidetoc:jump-prev");
   noremap("<C-r>", "narrow-note:open");
+  noremap("<C-@>", "narrow-tag:open");
   noremap("<C-o>", "core:navigate-back");
   noremap("<C-q>", "core:find");
   noremap("<C-i>", "core:navigate-forward");
