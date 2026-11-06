@@ -82,7 +82,7 @@
 
   ".editor-title-bar-layout input[type='text']": {
     "enter": "mycmd:editor-focus",
-    "ctrl-a": "native!",
-    "ctrl-e": "native!"
+    "ctrl-a": "mycmd:go-line-start",
+    "ctrl-e": "mycmd:go-line-end"
   }
 }

@@ -218,6 +218,37 @@ inkdrop.commands.add(document.body, {
   },
 });
 
+const goLineBoundary = (boundary) => {
+  const ele = document.activeElement;
+  if (!ele) return;
+
+  if (ele.matches("input, textarea")) {
+    if (ele.selectionStart === null) return;
+
+    let position = boundary === "start" ? 0 : ele.value.length;
+    if (ele.matches("textarea")) {
+      if (boundary === "start") {
+        const cursor = ele.selectionStart;
+        position = cursor === 0 ? 0 : ele.value.lastIndexOf("\n", cursor - 1) + 1;
+      } else {
+        const nextNewline = ele.value.indexOf("\n", ele.selectionEnd);
+        position = nextNewline === -1 ? ele.value.length : nextNewline;
+      }
+    }
+    ele.setSelectionRange(position, position);
+    return;
+  }
+
+  if (ele.closest(".cm-editor")) {
+    invoke(`editor:go-line-${boundary}`);
+  }
+};
+
+inkdrop.commands.add(document.body, {
+  "mycmd:go-line-start": () => goLineBoundary("start"),
+  "mycmd:go-line-end": () => goLineBoundary("end"),
+});
+
 inkdrop.commands.add(document.body, {
   "mycmd:open-next-note": () => openNote("next"),
   "mycmd:open-prev-note": () => openNote("prev"),
