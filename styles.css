@@ -405,10 +405,19 @@ body {
 }
 
 /* ノートリスト */
+@keyframes note-list-active-highlight {
+  from {
+    box-shadow: inset 3px 0 0 rgba(250, 207, 78, 0.5);
+  }
+  to {
+    box-shadow: inset 3px 0 0 rgba(250, 207, 78, 0);
+  }
+}
+
 .note-list-bar-layout {
   background-color: #34393d;
   .note-list-item-view.active {
-    box-shadow: inset 3px 0 0 rgba(250, 207, 78, 0.5);
+    animation: note-list-active-highlight 1.5s ease-out;
   }
   .note-list-bar-layout-content {
     background-color: #34393d;
