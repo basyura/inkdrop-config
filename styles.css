@@ -407,6 +407,9 @@ body {
 /* ノートリスト */
 .note-list-bar-layout {
   background-color: #34393d;
+  .note-list-item-view.active {
+    box-shadow: inset 3px 0 0 rgba(250, 207, 78, 0.5);
+  }
   .note-list-bar-layout-content {
     background-color: #34393d;
   }
