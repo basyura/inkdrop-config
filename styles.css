@@ -253,11 +253,17 @@ body {
             justify-content: left;
           }
           .md-inline-code {
-            padding-left: 4px;
-            padding-right: 4px;
+            padding-inline: 0;
             border: 0px;
             color: #e0e0e0;
             background-color: rgba(195, 195, 195, 0.2);
+          }
+          .md-code-mark:has(+ .md-inline-code),
+          .md-code-mark:has(+ * .md-inline-code) {
+            padding-right: 4px;
+          }
+          :is(.md-inline-code, :has(.md-inline-code)) + .md-code-mark {
+            padding-left: 4px;
           }
           .short-link-mark {
             font-size: 80%;
