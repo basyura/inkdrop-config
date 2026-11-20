@@ -423,7 +423,7 @@ body {
 .note-list-bar-layout {
   background-color: #34393d;
   .note-list-item-view.active {
-    animation: note-list-active-highlight 1.5s ease-out;
+    box-shadow: inset 4px 0 0 #597699;
   }
   .note-list-bar-layout-content {
     background-color: #34393d;
